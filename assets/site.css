@@ -23,13 +23,14 @@ nav a.gh:hover{color:var(--text);border-color:#555}
 .langsw a.on{background:var(--red);color:#fff}
 .langsw a:not(.on):hover{color:var(--text)}
 @media(max-width:700px){.kofi-mini,nav a.gh{display:none}}
-.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;padding:40px 0 60px}
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:start;padding:40px 0 60px}
 @media(max-width:860px){.hero{grid-template-columns:1fr;gap:32px;padding-top:16px}}
-.badge{display:inline-flex;gap:8px;align-items:center;font-size:13px;color:var(--ok);background:#3ddc8414;border:1px solid #3ddc8433;padding:4px 12px;border-radius:20px}
+.badge{display:inline-flex;gap:8px;align-items:center;font-size:13px;color:#c9ced8;background:#ffffff08;border:1px solid var(--line);padding:5px 14px;border-radius:20px}
+.badge .dot{width:6px;height:6px;border-radius:50%;background:var(--red);flex:none}
 h1{font-size:clamp(32px,5vw,52px);line-height:1.08;margin:16px 0 18px;letter-spacing:-.01em}
 h1 em{font-style:normal;color:var(--red)}
-.dnd{display:inline-block;margin:0 0 16px;padding:9px 16px;font-size:17px;font-weight:600;color:#fff;background:#ff3b3014;border:1px solid #ff3b3040;border-radius:12px}
-.lead{color:#c9ced8;margin:0 0 6px;font-size:17px}
+.lead{color:#c9ced8;margin:0 0 6px;font-size:18px;max-width:34em}
+.lead strong{color:#fff}
 .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
 .btn{display:inline-flex;align-items:center;gap:10px;padding:15px 24px;border-radius:12px;font-weight:700;text-decoration:none;transition:transform .15s;border:0;font:inherit;font-weight:700;cursor:pointer;color:inherit}
 .btn:hover{transform:translateY(-2px)}
