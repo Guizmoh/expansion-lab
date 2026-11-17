@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Expansion Lab – Créateur gratuit d'expansions &amp; kits MPC (Windows, en ligne)</title>
-<meta name="description" content="Application gratuite et open source pour créer des kits de batterie MPC (.xpm) et des expansions MPC avec image, et importer vos samples sur MPC. En ligne ou à télécharger pour Windows. MPC One, Live, X, Key.">
+<meta name="description" content="Un simple glisser-déposer suffit : application gratuite et open source pour créer des kits de batterie MPC (.xpm) et des expansions MPC avec image, et importer vos samples sur MPC. En ligne ou à télécharger pour Windows. MPC One, Live, X, Key.">
 <meta name="keywords" content="créer expansion MPC, créateur de kit MPC, importer samples MPC, convertir samples MPC, programme drum XPM, kit batterie MPC, expansion MPC gratuite, logiciel gratuit MPC, logiciel MPC Windows, image expansion MPC, pochette expansion MPC, One Shot Note On MPC, MPC One, MPC Live, MPC X, MPC Key 61, MPC Key 37, MPC Studio, MPC expansion maker, MPC drum kit maker, free MPC expansion, open source MPC">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="author" content="Guizmoh">
@@ -27,7 +27,9 @@
 <meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://guizmoh.github.io/expansion-lab/og-image.png">
-<link rel="stylesheet" href="assets/site.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=6">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -66,17 +68,20 @@
 <body>
 <div class="wrap">
   <nav>
-    <a class="brand" href="./"><img src="favicon.svg" width="30" height="30" alt=""> <b class="bt">E<em>X</em>PANSION LAB</b></a>
+    <a class="brand" href="./"><img class="bicon" src="favicon.svg" alt=""> <b class="bt"><span class="sr">Expansion Lab</span><span class="lw" aria-hidden="true">E<svg class="xpad" viewBox="0 0 100 100" aria-hidden="true"><rect x="0" y="0" width="22" height="22" rx="4"/><rect x="26" y="26" width="22" height="22" rx="4"/><rect x="52" y="52" width="22" height="22" rx="4"/><rect x="78" y="78" width="22" height="22" rx="4"/><rect x="78" y="0" width="22" height="22" rx="4"/><rect x="52" y="26" width="22" height="22" rx="4"/><rect x="26" y="52" width="22" height="22" rx="4"/><rect x="0" y="78" width="22" height="22" rx="4"/></svg>PANSION LAB</span></b></a>
     <div class="sp"></div>
-    <a class="kofi-mini" href="https://ko-fi.com/omnipotard" target="_blank" rel="noopener">☕ Soutenir sur Ko-fi</a>
-    <a class="gh" href="https://github.com/Guizmoh/expansion-lab">★ GitHub</a>
-    <div class="langsw" aria-label="Langue"><a class="on" href="./" hreflang="fr" lang="fr" data-setlang="fr">FR</a><a href="en/" hreflang="en" lang="en" data-setlang="en">EN</a></div>
+    <div class="navr">
+      <a class="kofi-mini" href="https://ko-fi.com/omnipotard" target="_blank" rel="noopener">☕ Soutenir sur Ko-fi</a>
+      <a class="gh" href="https://github.com/Guizmoh/expansion-lab">★ GitHub</a>
+      <div class="langsw" aria-label="Langue"><a class="on" href="./" hreflang="fr" lang="fr" data-setlang="fr">FR</a><a href="en/" hreflang="en" lang="en" data-setlang="en">EN</a></div>
+    </div>
   </nav>
 
   <header class="hero">
     <div>
       <span class="badge">● Gratuit · Open source · Sans inscription · Windows &amp; en ligne</span>
       <h1>Créez vos <em>kits de batterie</em> et <em>expansions MPC</em> gratuitement</h1>
+      <p class="dnd">⤓ Un simple glisser-déposer suffit : déposez vos sons sur les pads, votre expansion est prête.</p>
       <p class="lead">Application gratuite et open source pour <strong>importer vos samples sur MPC</strong>, créer des <strong>programmes drum (.xpm)</strong> et des <strong>expansions MPC avec image</strong> visible dans la liste des expansions. Utilisez-la en ligne ou <strong>téléchargez-la pour Windows</strong>.</p>
       <div class="cta">
         <a class="btn main" href="mpc-expansion-maker.html?lang=fr" data-setlang="fr">▶ Ouvrir l'application<small>En ligne, gratuit</small></a>
@@ -98,7 +103,7 @@
     <h2>Fonctionnalités</h2>
     <p class="sub">Tout ce qu'il faut pour transformer vos samples en kit MPC prêt à jouer.</p>
     <div class="features">
-      <div class="f"><div class="ic">⤓</div><h3>Glisser-déposer vos samples</h3><p>Déposez des fichiers ou un dossier entier sur les pads. WAV, MP3, AIFF, FLAC et OGG sont convertis automatiquement en WAV.</p></div>
+      <div class="f"><div class="ic">⤓</div><h3>Un simple glisser-déposer suffit</h3><p>Déposez des fichiers ou un dossier entier sur les pads. WAV, MP3, AIFF, FLAC et OGG sont convertis automatiquement en WAV.</p></div>
       <div class="f"><div class="ic">▦</div><h3>Kits de batterie MPC (.xpm)</h3><p>8 banques A–H, 128 pads, plusieurs kits par expansion. Échangez les pads, écoutez au clic ou au clavier.</p></div>
       <div class="f"><div class="ic">▣</div><h3>Expansion MPC avec image</h3><p>Ajoutez une pochette : elle apparaît dans la liste des expansions de la MPC. Sans image, une pochette est générée.</p></div>
       <div class="f"><div class="ic">⚙</div><h3>One Shot ou Note On</h3><p>Choisissez pour chaque pad si le son joue en entier (One Shot) ou seulement tant que le pad est tenu (Note On).</p></div>
@@ -129,7 +134,7 @@
 
   <section id="comment">
     <h2>Comment créer une expansion MPC</h2>
-    <p class="sub">Quatre étapes, quelques minutes.</p>
+    <p class="sub">Un simple glisser-déposer suffit : quatre étapes, quelques minutes.</p>
     <div class="steps">
       <div class="st"><b>Glissez vos samples</b><span>sur les pads ou dans la bibliothèque</span></div>
       <div class="st"><b>Ajoutez une image</b><span>elle s'affichera dans la liste des expansions</span></div>
@@ -178,6 +183,6 @@
     <p>Projet indépendant, non affilié à Akai Professional ou inMusic. « MPC » est une marque de son propriétaire.</p>
   </div>
 </footer>
-<script src="assets/site.js"></script>
+<script src="assets/site.js?v=3"></script>
 </body>
 </html>

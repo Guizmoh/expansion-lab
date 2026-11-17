@@ -31,13 +31,21 @@ body{margin:0;color:var(--text);font:14px/1.45 Inter,"Segoe UI",system-ui,sans-s
 .display{font-family:Rajdhani,"Segoe UI",sans-serif;letter-spacing:.06em}
 
 /* Header */
-header{display:flex;align-items:center;gap:12px;padding:20px 28px;max-width:1480px;margin:0 auto;flex-wrap:wrap}
-.logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(145deg,#ff4d3d,#b3140c);display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:8px;box-shadow:0 6px 20px -6px var(--glow),inset 0 1px 0 #ffffff40;flex:none}
-.logo i{background:#ffffffd0;border-radius:2px}
+header{--b:clamp(26px,6vw,88px);display:flex;align-items:center;gap:12px 16px;padding:20px 28px;max-width:1480px;margin:0 auto;flex-wrap:wrap}
+.logo{width:var(--b);height:var(--b);border-radius:calc(var(--b)*.27);background:linear-gradient(145deg,#ff4d3d,#b3140c);display:grid;grid-template-columns:repeat(3,1fr);gap:calc(var(--b)*.07);padding:calc(var(--b)*.18);box-shadow:0 6px 20px -6px var(--glow),inset 0 1px 0 #ffffff40;flex:none}
+.logo i{background:#ffffffd0;border-radius:calc(var(--b)*.045)}
 .logo i:nth-child(2n){background:#ffffff55}
-header h1{margin:0;font-size:26px;font-weight:700;line-height:1}
-header h1 span{color:var(--red)}
-header p{margin:4px 0 0;color:var(--muted);font-size:13px}
+header h1{margin:0;font-size:calc(var(--b)/.65);font-weight:700;line-height:.65}
+.hbreak{flex-basis:100%;height:0}
+header .tagline{flex:1 1 260px;margin:0}
+.hbtns{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-left:auto}
+header h1 .lw{position:relative;top:calc(var(--b)*.025)}
+.xpad{height:.65em;height:1cap;width:auto;vertical-align:0;margin:0 .04em;fill:currentColor}
+.lw{white-space:nowrap;display:inline-block}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+
+header p{margin:4px 0 0;color:var(--muted);font-size:14px}
 .hbtn{color:var(--muted);font-size:13px;text-decoration:none;border:1px solid var(--line2);padding:7px 12px;border-radius:20px;background:transparent;white-space:nowrap}
 .hbtn:hover{color:var(--text)}
 .kofi-btn{font-size:13px;font-weight:600;color:#f1d6c4;text-decoration:none;background:#d99a721a;border:1px solid #d99a7250;padding:7px 14px;border-radius:20px;white-space:nowrap}
@@ -201,15 +209,16 @@ dialog::backdrop{background:#000a;backdrop-filter:blur(3px)}
 <body>
 <header>
   <a href="./" class="logo" data-i18n-title="home"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></a>
-  <div style="flex:1;min-width:200px">
-    <h1 class="display">E<span>X</span>PANSION LAB</h1>
-    <p data-i18n="tagline"></p>
-  </div>
+  <h1 class="display brandtitle"><span class="sr">Expansion Lab</span><span class="lw" aria-hidden="true">E<svg class="xpad" viewBox="0 0 100 100" aria-hidden="true"><rect x="0" y="0" width="22" height="22" rx="4"/><rect x="26" y="26" width="22" height="22" rx="4"/><rect x="52" y="52" width="22" height="22" rx="4"/><rect x="78" y="78" width="22" height="22" rx="4"/><rect x="78" y="0" width="22" height="22" rx="4"/><rect x="52" y="26" width="22" height="22" rx="4"/><rect x="26" y="52" width="22" height="22" rx="4"/><rect x="0" y="78" width="22" height="22" rx="4"/></svg>PANSION LAB</span></h1>
+  <div class="hbreak"></div>
+  <p class="tagline" data-i18n="tagline"></p>
+  <div class="hbtns">
   <button class="hbtn" id="installBtn" data-i18n="install"></button>
   <a href="https://ko-fi.com/omnipotard" target="_blank" rel="noopener" class="kofi-btn" data-i18n="kofiBtn" data-i18n-title="kofiTitle"></a>
   <a href="./" class="hbtn home" id="homeLink" data-i18n="homeBack"></a>
   <div class="langsw" role="group" aria-label="Langue / Language">
     <button data-lang="fr">FR</button><button data-lang="en">EN</button>
+  </div>
   </div>
 </header>
 
