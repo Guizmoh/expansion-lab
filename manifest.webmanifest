@@ -1,0 +1,17 @@
+{
+  "name": "MPC Kit Maker",
+  "short_name": "MPC Kit Maker",
+  "description": "Créateur gratuit de kits & expansions MPC · Free MPC drum kit & expansion maker",
+  "start_url": "./mpc-kit-maker.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0c0d10",
+  "theme_color": "#0c0d10",
+  "lang": "fr",
+  "categories": ["music", "utilities"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
