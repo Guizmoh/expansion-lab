@@ -85,7 +85,7 @@ Aucune dépendance : l'appli est entièrement dans `mpc-expansion-maker.html`. `
 créer expansion MPC · logiciel MPC Windows · One Shot Note On MPC · créateur de kit batterie MPC · importer samples MPC · programme drum XPM · expansion MPC gratuite · logiciel gratuit MPC · image expansion MPC · MPC expansion maker · MPC drum kit maker · import samples to MPC · XPM drum program creator · free MPC expansion · MPC expansion cover art · open source MPC tool · Akai MPC sample pack
 
 ### Contact
-📧 [guizmoh.photo@gmail.com](mailto:guizmoh.photo@gmail.com)
+📧 [guizve@gmail.com](mailto:guizve@gmail.com)
 
 ### Licence / License
 MIT — voir / see [LICENSE](LICENSE).
