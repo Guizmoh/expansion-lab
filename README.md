@@ -1,21 +1,21 @@
-# MPC Kit Maker — Créateur gratuit de kits & expansions MPC / Free MPC Expansion & Drum Kit Maker
+# Expansion Lab — Créateur gratuit de kits & expansions MPC / Free MPC Expansion & Drum Kit Maker
 
-[![Open the app](https://img.shields.io/badge/▶_Ouvrir_l'app_/_Open_the_app-ff3b30?style=for-the-badge)](https://guizmoh.github.io/mpc-kit-maker/)
+[![Open the app](https://img.shields.io/badge/▶_Ouvrir_l'app_/_Open_the_app-ff3b30?style=for-the-badge)](https://guizmoh.github.io/expansion-lab/)
 ![License MIT](https://img.shields.io/badge/license-MIT-3ddc84?style=for-the-badge)
 ![Free](https://img.shields.io/badge/gratuit_/_free-100%25-555?style=for-the-badge)
 [![Ko-fi](https://img.shields.io/badge/☕_Soutenir_/_Support-C4825B?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/omnipotard)
 
-![MPC Kit Maker](og-image.png)
+![Expansion Lab](og-image.png)
 
-**👉 Français : [https://guizmoh.github.io/mpc-kit-maker/](https://guizmoh.github.io/mpc-kit-maker/) · English: [https://guizmoh.github.io/mpc-kit-maker/en/](https://guizmoh.github.io/mpc-kit-maker/en/)**
+**👉 Français : [https://guizmoh.github.io/expansion-lab/](https://guizmoh.github.io/expansion-lab/) · English: [https://guizmoh.github.io/expansion-lab/en/](https://guizmoh.github.io/expansion-lab/en/)**
 
-**⬇ Windows :** [MPC-Kit-Maker-Windows.zip](https://guizmoh.github.io/mpc-kit-maker/downloads/MPC-Kit-Maker-Windows.zip) · ou installez-la comme une appli depuis Edge/Chrome / or install it as an app from Edge/Chrome
+**⬇ Windows :** [Expansion-Lab-Windows.zip](https://guizmoh.github.io/expansion-lab/downloads/Expansion-Lab-Windows.zip) · ou installez-la comme une appli depuis Edge/Chrome / or install it as an app from Edge/Chrome
 
 ---
 
 ## 🇫🇷 Français
 
-**MPC Kit Maker** est une application web **gratuite et open source** pour **créer des kits de batterie MPC (.xpm)** et des **expansions MPC avec image de pochette**, et pour **importer facilement vos samples sur MPC**. Elle fonctionne dans le navigateur, sans installation ni inscription. Vos sons ne quittent pas votre ordinateur.
+**Expansion Lab** est une application web **gratuite et open source** pour **créer des kits de batterie MPC (.xpm)** et des **expansions MPC avec image de pochette**, et pour **importer facilement vos samples sur MPC**. Elle fonctionne dans le navigateur, sans installation ni inscription. Vos sons ne quittent pas votre ordinateur.
 
 ### Fonctionnalités
 - Glisser-déposer de samples **ou de dossiers entiers** sur les pads
@@ -30,7 +30,7 @@
 - Export en `.zip` : expansion complète ou kit seul
 
 ### Utilisation
-1. Ouvrez l'application : https://guizmoh.github.io/mpc-kit-maker/
+1. Ouvrez l'application : https://guizmoh.github.io/expansion-lab/
 2. Glissez vos samples sur les pads.
 3. Ajoutez une image de pochette.
 4. Cliquez sur **Télécharger l'expansion**.
@@ -44,7 +44,7 @@ MPC One / One+, MPC Live / Live II, MPC X / X SE, MPC Key 61, MPC Key 37, MPC St
 
 ## 🇬🇧 English
 
-**MPC Kit Maker** is a **free, open-source** web app to **create MPC drum kits (.xpm drum programs)** and **MPC expansions with cover art**, and to **easily import samples into your MPC**. It runs in your browser, with no install and no sign-up. Your samples never leave your computer.
+**Expansion Lab** is a **free, open-source** web app to **create MPC drum kits (.xpm drum programs)** and **MPC expansions with cover art**, and to **easily import samples into your MPC**. It runs in your browser, with no install and no sign-up. Your samples never leave your computer.
 
 ### Features
 - Drag & drop samples **or whole folders** onto the pads
@@ -59,7 +59,7 @@ MPC One / One+, MPC Live / Live II, MPC X / X SE, MPC Key 61, MPC Key 37, MPC St
 - `.zip` export: full expansion or a single kit
 
 ### How to use
-1. Open the app: https://guizmoh.github.io/mpc-kit-maker/
+1. Open the app: https://guizmoh.github.io/expansion-lab/
 2. Drag your samples onto the pads.
 3. Add a cover image.
 4. Click **Download expansion**.
@@ -73,13 +73,13 @@ MPC One / One+, MPC Live / Live II, MPC X / X SE, MPC Key 61, MPC Key 37, MPC St
 
 ### ☕ Soutenir / Support
 
-**Cet outil vous a été utile ?** MPC Kit Maker est gratuit et le restera. Un petit café sur Ko-fi m'aide à continuer de l'améliorer.
-**Was this tool useful?** MPC Kit Maker is free and always will be. A small coffee on Ko-fi helps me keep improving it.
+**Cet outil vous a été utile ?** Expansion Lab est gratuit et le restera. Un petit café sur Ko-fi m'aide à continuer de l'améliorer.
+**Was this tool useful?** Expansion Lab is free and always will be. A small coffee on Ko-fi helps me keep improving it.
 
 [![Soutenir sur Ko-fi / Support me on Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/omnipotard)
 
 ### Développement / Development
-Aucune dépendance : l'appli est entièrement dans `mpc-kit-maker.html`. `tools/build.py` remplit les liens et crée le .zip Windows. No dependencies: the app lives entirely in `mpc-kit-maker.html`; `tools/build.py` fills in the links and builds the Windows .zip. Les contributions sont bienvenues / Contributions welcome!
+Aucune dépendance : l'appli est entièrement dans `mpc-expansion-maker.html`. `tools/build.py` remplit les liens et crée le .zip Windows. No dependencies: the app lives entirely in `mpc-expansion-maker.html`; `tools/build.py` fills in the links and builds the Windows .zip. Les contributions sont bienvenues / Contributions welcome!
 
 ### Mots-clés / Keywords
 créer expansion MPC · logiciel MPC Windows · One Shot Note On MPC · créateur de kit batterie MPC · importer samples MPC · programme drum XPM · expansion MPC gratuite · logiciel gratuit MPC · image expansion MPC · MPC expansion maker · MPC drum kit maker · import samples to MPC · XPM drum program creator · free MPC expansion · MPC expansion cover art · open source MPC tool · Akai MPC sample pack

@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://guizmoh.github.io/mpc-kit-maker/sitemap.xml
+Sitemap: https://guizmoh.github.io/expansion-lab/sitemap.xml

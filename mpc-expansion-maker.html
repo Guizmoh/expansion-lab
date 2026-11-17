@@ -1,0 +1,941 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Expansion Lab – Créer une expansion MPC en ligne | Online MPC Expansion &amp; Drum Kit Maker</title>
+<meta name="description" content="Créez gratuitement vos kits de batterie MPC (.xpm) et expansions MPC avec image, en glissant vos samples. Free online MPC drum kit and expansion maker with cover art – import samples into your MPC.">
+<link rel="canonical" href="https://guizmoh.github.io/expansion-lab/mpc-expansion-maker.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0c0d10">
+<meta property="og:title" content="Expansion Lab – Free MPC Expansion & Drum Kit Maker">
+<meta property="og:description" content="Créez vos kits et expansions MPC avec image, gratuitement. Create MPC drum kits and expansions with cover art, free.">
+<meta property="og:image" content="https://guizmoh.github.io/expansion-lab/og-image.png">
+<meta property="og:url" content="https://guizmoh.github.io/expansion-lab/mpc-expansion-maker.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0c0d10; --panel2:#252931; --line:#2e333c; --line2:#3a404b;
+  --text:#eef0f4; --muted:#8c94a3; --dim:#5d6472;
+  --red:#ff3b30; --red2:#ff6b3d; --glow:rgba(255,59,48,.55); --ok:#3ddc84; --lcd:#9fffd0; --blue:#13c3ff;
+  --r:14px;
+}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{margin:0;color:var(--text);font:14px/1.45 Inter,"Segoe UI",system-ui,sans-serif;
+  background:radial-gradient(1200px 600px at 50% -200px,#2a1416 0%,transparent 60%),
+             radial-gradient(900px 500px at 100% 100%,#141a24 0%,transparent 60%),var(--bg);}
+.display{font-family:Rajdhani,"Segoe UI",sans-serif;letter-spacing:.06em}
+
+/* Header */
+header{display:flex;align-items:center;gap:12px;padding:20px 28px;max-width:1480px;margin:0 auto;flex-wrap:wrap}
+.logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(145deg,#ff4d3d,#b3140c);display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:8px;box-shadow:0 6px 20px -6px var(--glow),inset 0 1px 0 #ffffff40;flex:none}
+.logo i{background:#ffffffd0;border-radius:2px}
+.logo i:nth-child(2n){background:#ffffff55}
+header h1{margin:0;font-size:26px;font-weight:700;line-height:1}
+header h1 span{color:var(--red)}
+header p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.hbtn{color:var(--muted);font-size:13px;text-decoration:none;border:1px solid var(--line2);padding:7px 12px;border-radius:20px;background:transparent;white-space:nowrap}
+.hbtn:hover{color:var(--text)}
+.kofi-btn{font-size:13px;font-weight:600;color:#f1d6c4;text-decoration:none;background:#d99a721a;border:1px solid #d99a7250;padding:7px 14px;border-radius:20px;white-space:nowrap}
+.kofi-btn:hover{background:#d99a7230;color:#fff}
+.langsw{display:inline-flex;border:1px solid var(--line2);border-radius:20px;overflow:hidden;flex:none}
+.langsw button{border:0;border-radius:0;background:transparent;color:var(--muted);padding:6px 11px;font-weight:700;font-size:12px}
+.langsw button.on{background:var(--red);color:#fff}
+#installBtn{display:none}
+@media(max-width:700px){.kofi-btn,.hbtn.home{display:none}}
+
+main{display:grid;grid-template-columns:300px minmax(420px,1fr) 320px;gap:20px;padding:0 28px 28px;max-width:1480px;margin:0 auto;align-items:start}
+@media(max-width:1180px){main{grid-template-columns:1fr 1fr}.device{grid-column:1/-1;order:-1}}
+@media(max-width:760px){main{grid-template-columns:1fr;padding:0 16px 20px}header{padding:16px}}
+
+.card{background:linear-gradient(180deg,#1f2229,#191b21);border:1px solid var(--line);border-radius:var(--r);padding:18px;box-shadow:0 20px 40px -24px #000}
+.step{display:flex;align-items:center;gap:10px;margin:0 0 14px;font-size:15px;font-weight:700;text-transform:uppercase}
+.step b{width:24px;height:24px;border-radius:50%;background:var(--red);display:grid;place-items:center;font-size:13px;color:#fff;box-shadow:0 0 12px var(--glow)}
+label{display:block;font-size:12px;font-weight:500;color:var(--muted);margin:12px 0 5px}
+input[type=text],textarea{width:100%;background:#111317;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:10px 12px;font:inherit;transition:border-color .15s,box-shadow .15s}
+input[type=text]:focus,textarea:focus{outline:0;border-color:var(--red);box-shadow:0 0 0 3px #ff3b3033}
+textarea{resize:vertical;min-height:64px}
+button{font:inherit;cursor:pointer;border-radius:10px;border:1px solid var(--line2);background:var(--panel2);color:var(--text);padding:8px 12px;transition:all .15s}
+button:hover{border-color:#5a6170;background:#2d323b}
+.btn-main{width:100%;padding:14px;font-size:15px;font-weight:700;border:0;color:#fff;background:linear-gradient(180deg,#ff4d3d,#d91c10);box-shadow:0 10px 24px -10px var(--glow),inset 0 1px 0 #ffffff40}
+.btn-main:hover{background:linear-gradient(180deg,#ff5f50,#e8281b);transform:translateY(-1px)}
+.btn-wide{width:100%;padding:11px;margin-top:10px}
+.muted{color:var(--muted)} .small{font-size:12px}
+
+/* Cover */
+#cover{position:relative;aspect-ratio:1;max-width:260px;margin:4px auto 0;border-radius:12px;cursor:pointer;overflow:hidden;background:#111317;border:2px dashed var(--line2);display:grid;place-items:center;text-align:center;transition:all .2s}
+#cover:hover{border-color:var(--muted)}
+#cover.over{border-color:var(--red);box-shadow:0 0 0 4px #ff3b3033,0 0 30px var(--glow)}
+#cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#cover.has{border-style:solid;border-color:var(--line2)}
+#cover .hint{position:relative;padding:16px;color:var(--muted);font-size:13px}
+#cover .hint svg{display:block;margin:0 auto 8px;opacity:.7}
+#cover.has .hint{opacity:0;background:#000a;color:#fff;inset:0;position:absolute;display:grid;place-items:center;transition:opacity .2s}
+#cover.has:hover .hint{opacity:1}
+#coverClear{display:none;margin:10px auto 0}
+
+/* Device */
+.device{background:linear-gradient(180deg,#22252c,#15171c);border:1px solid #30353f;border-radius:20px;padding:18px;box-shadow:0 30px 60px -30px #000,inset 0 1px 0 #ffffff12}
+.lcd{background:linear-gradient(180deg,#0a1210,#07100d);border:1px solid #1d2b26;border-radius:10px;padding:12px 14px;margin-bottom:14px;box-shadow:inset 0 2px 10px #000}
+.lcd-top{display:flex;align-items:center;gap:10px}
+.lcd input{background:transparent;border:0;padding:2px 0;color:var(--lcd);font:600 22px Rajdhani,sans-serif;letter-spacing:.05em;text-shadow:0 0 8px #9fffd066;flex:1;min-width:0}
+.lcd input:focus{box-shadow:none;border-bottom:1px solid #9fffd055;border-radius:0}
+.lcd-info{color:#5fbf96;font:500 13px Rajdhani,sans-serif;letter-spacing:.08em;text-transform:uppercase;display:flex;gap:16px;margin-top:2px;align-items:center}
+.lcd-info .sp{flex:1}
+#modeBtn{background:#0f1f19;border:1px solid #2b4a3d;color:var(--lcd);font:600 13px Rajdhani,sans-serif;letter-spacing:.08em;padding:4px 10px;border-radius:6px}
+#modeBtn:hover{background:#163126}
+.kits{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+.kits button{padding:6px 12px;font-size:13px;border-radius:20px}
+.kits button.on{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 0 14px -2px var(--glow)}
+.kits .del{margin-left:auto;background:transparent;border-color:transparent;color:var(--muted)}
+.kits .del:hover{color:var(--red);border-color:var(--line2)}
+.banks{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin:12px auto 0;max-width:520px}
+.banks button{position:relative;padding:8px 0;font:700 15px Rajdhani,sans-serif;background:linear-gradient(180deg,#2c3038,#1f2228);border-color:#3a3f49;box-shadow:0 2px 0 #0a0b0d}
+.banks button.on{background:linear-gradient(180deg,#ff4d3d,#c91a0f);border-color:#ff5a4a;color:#fff;box-shadow:0 0 16px -2px var(--glow),0 2px 0 #5a0b06}
+.banks .dot{position:absolute;top:4px;right:5px;width:5px;height:5px;border-radius:50%;background:var(--ok);box-shadow:0 0 6px var(--ok)}
+#pads{max-width:520px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:14px;background:#0b0c0f;border-radius:14px;box-shadow:inset 0 3px 12px #000}
+.pad{aspect-ratio:1;position:relative;border-radius:10px;cursor:pointer;user-select:none;min-width:0;overflow:hidden;touch-action:none;
+  background:linear-gradient(160deg,#3a3e47,#2a2d34);border:1px solid #474c57;box-shadow:0 3px 0 #111,inset 0 1px 0 #ffffff14;transition:transform .06s,box-shadow .15s,border-color .15s}
+.pad>*{pointer-events:none}
+.pad:hover{border-color:#6a7180}
+.pad .id{position:absolute;top:6px;left:8px;font:700 12px Rajdhani,sans-serif;color:#8a909c;letter-spacing:.05em}
+.pad .key{position:absolute;top:6px;right:8px;font:600 10px Inter;color:#5d6472}
+.pad .plus{position:absolute;inset:0;display:grid;place-items:center;color:#5d6472;font-size:26px;font-weight:300}
+.pad canvas{position:absolute;left:6px;right:6px;top:26%;width:calc(100% - 12px);height:36%}
+.pad .nm{position:absolute;left:8px;right:8px;bottom:6px;font-size:11px;font-weight:600;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pad .mode{position:absolute;right:6px;bottom:22px;font:700 9px Rajdhani,sans-serif;letter-spacing:.08em;padding:1px 5px;border-radius:4px;background:#0008;color:#ffb3a8}
+.pad .mode.noteon{background:#13c3ff33;color:#8fe4ff}
+.pad.full{background:linear-gradient(160deg,#4a2320,#2b2226 70%);border-color:#8a2a22}
+.pad.full .id{color:#ff8a7a}
+.pad .tool{pointer-events:auto;position:absolute;top:4px;width:22px;height:22px;padding:0;border-radius:50%;font-size:11px;background:#000b;border:0;opacity:0}
+.pad .x{right:4px} .pad .gear{right:30px}
+.pad.full:hover .tool{opacity:1}
+.pad.full:hover .key{opacity:0}
+.pad .x:hover{background:var(--red)} .pad .gear:hover{background:var(--blue);color:#06222c}
+.pad.over{border-color:var(--red2);box-shadow:0 0 0 3px #ff6b3d55,0 0 24px var(--glow);transform:scale(1.03)}
+.pad.hit{transform:translateY(2px) scale(.98);box-shadow:0 1px 0 #111,0 0 30px 4px var(--glow);background:linear-gradient(160deg,#ff5a45,#c5180d);border-color:#ff8a7a}
+.pad.hit .id,.pad.hit .nm{color:#fff}
+.pad.dragging{opacity:.4}
+.help{display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:center;margin-top:14px;color:var(--muted);font-size:12px}
+.help span::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--red);margin-right:6px;vertical-align:middle}
+
+/* Library */
+.libhead{display:flex;gap:8px;margin-bottom:10px}
+.libhead input{flex:1;padding:8px 10px}
+#libDrop{border:2px dashed var(--line2);border-radius:10px;padding:14px;text-align:center;color:var(--muted);font-size:13px;cursor:pointer;transition:all .2s}
+#libDrop:hover{border-color:var(--muted);color:var(--text)}
+#libDrop.over{border-color:var(--red);color:var(--text);box-shadow:0 0 20px -4px var(--glow)}
+#lib{list-style:none;margin:10px 0 0;padding:0;max-height:330px;overflow-y:auto}
+#lib li{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px;cursor:grab;border:1px solid transparent}
+#lib li:hover{background:#ffffff08;border-color:var(--line)}
+#lib li:active{cursor:grabbing}
+#lib li.used .t::after{content:"●";color:var(--ok);font-size:8px;margin-left:6px;vertical-align:middle}
+#lib li canvas{width:46px;height:22px;flex:none}
+#lib li .t{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px}
+#lib li .grip{color:var(--dim);font-size:12px;letter-spacing:-2px}
+#lib li button{padding:2px 7px;font-size:11px;border-radius:6px;opacity:0}
+#lib li:hover button{opacity:1}
+.libfoot{display:flex;gap:8px;margin-top:10px}
+.libfoot button{flex:1;font-size:12px;padding:8px}
+
+/* Preview tile / export */
+.tile{display:flex;gap:12px;align-items:center;background:#0e1013;border:1px solid var(--line);border-radius:12px;padding:10px}
+.tile img{width:64px;height:64px;border-radius:8px;object-fit:cover;flex:none;box-shadow:0 4px 12px #000}
+.tile b{display:block;font-size:15px}
+#status{margin-top:12px;min-height:20px;font-size:13px;color:var(--ok)}
+#status.err{color:var(--red2)}
+hr{border:0;border-top:1px solid var(--line);margin:18px 0}
+details{margin-top:16px} summary{cursor:pointer;color:var(--muted);font-weight:600;font-size:13px}
+ol{margin:10px 0 0;padding-left:20px;color:var(--muted);font-size:13px} ol li{margin-bottom:6px}
+code{background:var(--panel2);padding:1px 6px;border-radius:5px;color:var(--text)}
+.kofi-card{display:none;margin-top:14px;padding:14px;border-radius:12px;background:linear-gradient(135deg,#2a1d17,#16181d);border:1px solid #d99a7240;text-align:center}
+.kofi-card.on{display:block;animation:pop .35s ease}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.kofi-card p{margin:0 0 10px;font-size:13px;color:#c3c8d2}
+.kofi-card a{display:inline-block;background:linear-gradient(180deg,#e3ab85,#c4825b);color:#2a150b;font-weight:700;text-decoration:none;padding:9px 18px;border-radius:10px}
+.kofi-foot{display:block;margin-top:14px;text-align:center;font-size:12px;color:var(--muted);text-decoration:none}
+.kofi-foot:hover{color:#e3ab85}
+
+/* Playback mode dialog */
+dialog{background:linear-gradient(180deg,#1f2229,#16181d);color:var(--text);border:1px solid var(--line2);border-radius:18px;padding:0;width:min(640px,calc(100vw - 32px));max-height:min(760px,calc(100vh - 40px));box-shadow:0 40px 80px -20px #000}
+dialog::backdrop{background:#000a;backdrop-filter:blur(3px)}
+.dlg-head{display:flex;align-items:center;gap:12px;padding:18px 20px 12px;border-bottom:1px solid var(--line)}
+.dlg-head h2{margin:0;font-size:20px;flex:1}
+.dlg-head button{border-radius:50%;width:34px;height:34px;padding:0}
+.dlg-body{padding:16px 20px;overflow-y:auto;max-height:calc(min(760px,100vh - 40px) - 140px)}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+@media(max-width:520px){.modes{grid-template-columns:1fr}}
+.mcard{background:#111317;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.mcard b{display:block;font:700 16px Rajdhani,sans-serif;letter-spacing:.06em;margin-bottom:2px}
+.mcard.os b{color:#ff8a7a} .mcard.no b{color:#8fe4ff}
+.mcard p{margin:0;color:var(--muted);font-size:12.5px}
+.mcard button{margin-top:10px;width:100%;font-size:12px;padding:7px}
+.prow{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;border:1px solid transparent}
+.prow:nth-child(odd){background:#ffffff05}
+.prow.flash{border-color:var(--blue);box-shadow:0 0 0 3px #13c3ff33}
+.prow .pid{font:700 14px Rajdhani,sans-serif;color:#ff8a7a;width:36px}
+.prow .pn{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prow .play{width:32px;height:32px;padding:0;border-radius:50%;flex:none}
+.seg{display:inline-flex;border:1px solid var(--line2);border-radius:10px;overflow:hidden;flex:none}
+.seg button{border:0;border-radius:0;background:transparent;color:var(--muted);padding:6px 10px;font:700 12px Rajdhani,sans-serif;letter-spacing:.06em}
+.seg button.on.os{background:var(--red);color:#fff}
+.seg button.on.no{background:var(--blue);color:#06222c}
+.empty{color:var(--muted);text-align:center;padding:30px 10px}
+.dlg-foot{padding:12px 20px 18px;border-top:1px solid var(--line);text-align:right}
+.dlg-foot button{background:var(--red);border-color:var(--red);color:#fff;font-weight:700;padding:10px 22px}
+
+/* Overlay */
+#overlay{position:fixed;inset:0;pointer-events:none;opacity:0;transition:opacity .2s;z-index:50;
+  background:radial-gradient(circle at 50% 50%,#ff3b3018,#0008);box-shadow:inset 0 0 0 4px var(--red),inset 0 0 80px var(--glow)}
+#overlay.on{opacity:1}
+#overlay div{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);background:var(--red);color:#fff;font-weight:700;padding:10px 20px;border-radius:30px;box-shadow:0 10px 30px var(--glow)}
+#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;background:#1f2229;border:1px solid var(--line2);padding:10px 18px;border-radius:30px;transition:all .25s;z-index:60;box-shadow:0 10px 30px #000;pointer-events:none}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+::-webkit-scrollbar{width:8px}::-webkit-scrollbar-thumb{background:#333842;border-radius:4px}
+</style>
+</head>
+<body>
+<header>
+  <a href="./" class="logo" data-i18n-title="home"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></a>
+  <div style="flex:1;min-width:200px">
+    <h1 class="display">E<span>X</span>PANSION LAB</h1>
+    <p data-i18n="tagline"></p>
+  </div>
+  <button class="hbtn" id="installBtn" data-i18n="install"></button>
+  <a href="https://ko-fi.com/omnipotard" target="_blank" rel="noopener" class="kofi-btn" data-i18n="kofiBtn" data-i18n-title="kofiTitle"></a>
+  <a href="./" class="hbtn home" id="homeLink" data-i18n="homeBack"></a>
+  <div class="langsw" role="group" aria-label="Langue / Language">
+    <button data-lang="fr">FR</button><button data-lang="en">EN</button>
+  </div>
+</header>
+
+<main>
+  <!-- 1. Expansion -->
+  <section class="card">
+    <h2 class="step display"><b>1</b><span data-i18n="step1"></span></h2>
+    <div id="cover"><div class="hint"></div></div>
+    <div style="text-align:center"><button id="coverClear" class="small" data-i18n="coverClear"></button></div>
+    <label for="expName" data-i18n="expName"></label>
+    <input type="text" id="expName" maxlength="50">
+    <label for="expAuthor" data-i18n="expAuthor"></label>
+    <input type="text" id="expAuthor" data-i18n-ph="expAuthorPh" maxlength="50">
+    <label for="expDesc" data-i18n="expDesc"></label>
+    <textarea id="expDesc" maxlength="300"></textarea>
+    <input type="file" id="imgFile" accept="image/*" hidden>
+  </section>
+
+  <!-- 2. Device -->
+  <section class="device">
+    <div class="kits" id="kits"></div>
+    <div class="lcd">
+      <div class="lcd-top"><span style="color:#5fbf96;font:600 13px Rajdhani">KIT</span><input type="text" id="kitName" maxlength="50" aria-label="Kit"></div>
+      <div class="lcd-info"><span id="lcdBank"></span><span id="lcdCount"></span><span class="sp"></span><button id="modeBtn" data-i18n="modeBtn"></button></div>
+    </div>
+    <div id="pads"></div>
+    <div class="banks" id="banks"></div>
+    <div class="help">
+      <span data-i18n="help1"></span>
+      <span data-i18n="help2"></span>
+      <span data-i18n="help3"></span>
+      <span data-i18n="help4"></span>
+    </div>
+    <input type="file" id="sndFile" accept="audio/*,.wav,.aif,.aiff,.mp3,.flac,.ogg" multiple hidden>
+  </section>
+
+  <!-- 3. Library + export -->
+  <div style="display:grid;gap:20px">
+    <section class="card">
+      <h2 class="step display"><b>2</b><span data-i18n="step2"></span></h2>
+      <div id="libDrop" data-i18n-html="libDrop"></div>
+      <div class="libhead" style="margin-top:10px;display:none" id="libTools"><input type="text" id="libSearch" data-i18n-ph="search"></div>
+      <ul id="lib"></ul>
+      <div class="libfoot" id="libFoot" style="display:none">
+        <button id="libFill" data-i18n="libFill" data-i18n-title="libFillTitle"></button>
+        <button id="libClear" data-i18n="libClear"></button>
+      </div>
+      <input type="file" id="libFile" accept="audio/*,.wav,.aif,.aiff,.mp3,.flac,.ogg" multiple hidden>
+    </section>
+
+    <section class="card">
+      <h2 class="step display"><b>3</b><span data-i18n="step3"></span></h2>
+      <div class="small muted" style="margin-bottom:6px" data-i18n="previewLabel"></div>
+      <div class="tile"><img id="tileImg" alt=""><div><b id="tileTitle"></b><span class="small muted" id="tileSub"></span></div></div>
+      <hr>
+      <button class="btn-main" id="btnExp" data-i18n="btnExp"></button>
+      <button class="btn-wide" id="btnKit" data-i18n="btnKit"></button>
+      <div id="status"></div>
+      <div class="kofi-card" id="kofiCard">
+        <p data-i18n-html="kofiCard"></p>
+        <a href="https://ko-fi.com/omnipotard" target="_blank" rel="noopener" data-i18n="kofiSupport"></a>
+      </div>
+      <a class="kofi-foot" id="kofiFoot" href="https://ko-fi.com/omnipotard" target="_blank" rel="noopener" data-i18n="kofiFoot"></a>
+      <details>
+        <summary data-i18n="howTitle"></summary>
+        <ol data-i18n-html="howSteps"></ol>
+      </details>
+    </section>
+  </div>
+</main>
+
+<!-- Page « Mode de lecture » -->
+<dialog id="modeDlg">
+  <div class="dlg-head"><h2 class="display" data-i18n="modeTitle"></h2><button id="modeClose" aria-label="Fermer / Close">✕</button></div>
+  <div class="dlg-body">
+    <div class="modes">
+      <div class="mcard os"><b>ONE SHOT</b><p data-i18n="osDesc"></p><button data-all="oneshot" data-i18n="allOs"></button></div>
+      <div class="mcard no"><b>NOTE ON</b><p data-i18n="noDesc"></p><button data-all="noteon" data-i18n="allNo"></button></div>
+    </div>
+    <div id="modeList"></div>
+  </div>
+  <div class="dlg-foot"><button id="modeDone" data-i18n="done"></button></div>
+</dialog>
+
+<div id="overlay"><div data-i18n="overlay"></div></div>
+<div id="toast"></div>
+
+<script>
+"use strict";
+/* ---------- Traductions / Translations ---------- */
+const I18N = {
+  fr: {
+    title: "Expansion Lab – Créer une expansion MPC en ligne",
+    tagline: "Glissez vos sons sur les pads, ajoutez une pochette, téléchargez votre expansion.",
+    home: "Accueil", homeBack: "← Accueil", install: "⬇ Installer l'appli",
+    kofiBtn: "☕ Soutenir sur Ko-fi", kofiTitle: "Cet outil vous a été utile ?",
+    step1: "Expansion", step2: "Bibliothèque de sons", step3: "Exporter",
+    coverHint: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg><b>Glissez votre pochette ici</b><br><span class="small">ou cliquez · JPG / PNG<br>Sans image, une pochette est générée</span>',
+    coverChange: "<b>Changer l'image</b>", coverClear: "Retirer l'image", coverTitle: "Cliquez ou glissez une image",
+    expName: "Nom de l'expansion", defName: "Mon Expansion", expAuthor: "Auteur / marque", expAuthorPh: "Votre nom", expDesc: "Description (facultatif)",
+    bank: "Banque", modeBtn: "⚙ MODE DE LECTURE",
+    help1: "Glissez des sons ou un dossier sur un pad", help2: "Glissez un pad sur un autre pour échanger",
+    help3: "Clic ou clavier pour écouter", help4: "⚙ ou clic droit : One Shot / Note On",
+    libDrop: "<b>Déposez des sons ou un dossier</b><br><span class=\"small\">ou cliquez pour parcourir</span>",
+    search: "Rechercher…", libFill: "Remplir les pads vides", libFillTitle: "Remplit les pads vides du kit avec les sons pas encore utilisés", libClear: "Vider la liste",
+    libItem: "Glissez sur un pad · clic pour écouter", remove: "Retirer de la liste",
+    previewLabel: "Aperçu dans la liste des expansions", btnExp: "⬇ Télécharger l'expansion (.zip)", btnKit: "Kit seul, sans expansion (.zip)",
+    kofiCard: "<b>Cet outil vous a été utile ? ☕</b><br>L'outil est gratuit, un petit soutien m'aide à l'améliorer.",
+    kofiSupport: "☕ Soutenir sur Ko-fi", kofiFoot: "Cet outil vous est utile ? Vous pouvez me soutenir sur Ko-fi ☕",
+    howTitle: "Comment l'installer sur ma MPC ?",
+    howSteps: "<li>Décompressez le .zip.</li><li><b>MPC autonome</b> (One, Live, X, Key…) : copiez le dossier dans un dossier <code>Expansions</code> à la racine de la carte SD / clé USB / disque.</li><li><b>Logiciel MPC</b> : copiez le dossier dans le dossier d'expansions du logiciel, puis relancez-le.</li><li>Ouvrez <b>Browser › Expansions</b> : votre pochette apparaît dans la liste.</li>",
+    overlay: "Déposez vos sons ou votre pochette",
+    newKit: "+ Kit", delKit: "Supprimer ce kit", confirmDel: "Supprimer le kit « {0} » ?", noName: "Sans nom", kit: "Kit",
+    clearPad: "Vider ce pad", padMode: "Mode de lecture",
+    loading: "Chargement {0}/{1}…", unreadable: "Illisible : {0}", noAudio: "Aucun fichier audio reconnu.",
+    placed: "{0} son(s) placé(s) à partir de {1}", added: "{0} son(s) ajouté(s) à la bibliothèque",
+    coverAdded: "Pochette ajoutée", imgBad: "Image illisible.", dropImg: "Déposez une image (JPG, PNG…)",
+    filled: "{0} pad(s) rempli(s)", noFree: "Aucun son libre à placer",
+    preparing: "Préparation…", downloaded: "✔ {0}.zip téléchargé ({1} fichiers).", needSound: "Ajoutez au moins un son sur un pad avant d'exporter.",
+    tileSub: "{0} · {1} kit(s) · {2} son(s)",
+    modeTitle: "Mode de lecture des sons",
+    osDesc: "Le son est joué en entier, même si vous relâchez le pad tout de suite. Idéal pour kicks, snares, claps, percussions.",
+    noDesc: "Le son ne joue que tant que vous gardez le pad enfoncé et s'arrête au relâchement. Idéal pour 808 longues, nappes, voix, boucles.",
+    allOs: "Tout le kit en One Shot", allNo: "Tout le kit en Note On",
+    noPads: "Aucun son dans ce kit pour l'instant. Glissez des sons sur les pads, puis revenez ici.",
+    done: "Terminé", modeSet: "{0} pad(s) en {1}", listen: "Écouter (maintenez pour Note On)"
+  },
+  en: {
+    title: "Expansion Lab – Create an MPC expansion online",
+    tagline: "Drag samples onto the pads, add cover art, download your expansion.",
+    home: "Home", homeBack: "← Home", install: "⬇ Install app",
+    kofiBtn: "☕ Support on Ko-fi", kofiTitle: "Was this tool useful?",
+    step1: "Expansion", step2: "Sample library", step3: "Export",
+    coverHint: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg><b>Drop your cover art here</b><br><span class="small">or click · JPG / PNG<br>No image? One is generated</span>',
+    coverChange: "<b>Change image</b>", coverClear: "Remove image", coverTitle: "Click or drop an image",
+    expName: "Expansion name", defName: "My Expansion", expAuthor: "Author / brand", expAuthorPh: "Your name", expDesc: "Description (optional)",
+    bank: "Bank", modeBtn: "⚙ PLAYBACK MODE",
+    help1: "Drop sounds or a folder onto a pad", help2: "Drag a pad onto another to swap",
+    help3: "Click or keyboard to play", help4: "⚙ or right-click: One Shot / Note On",
+    libDrop: "<b>Drop sounds or a folder</b><br><span class=\"small\">or click to browse</span>",
+    search: "Search…", libFill: "Fill empty pads", libFillTitle: "Fills the kit's empty pads with sounds not used yet", libClear: "Clear list",
+    libItem: "Drag onto a pad · click to play", remove: "Remove from list",
+    previewLabel: "Preview in the expansion browser", btnExp: "⬇ Download expansion (.zip)", btnKit: "Kit only, no expansion (.zip)",
+    kofiCard: "<b>Was this tool useful? ☕</b><br>This tool is free – a little support helps me keep improving it.",
+    kofiSupport: "☕ Support me on Ko-fi", kofiFoot: "Is this tool useful to you? You can support me on Ko-fi ☕",
+    howTitle: "How do I install it on my MPC?",
+    howSteps: "<li>Unzip the .zip file.</li><li><b>Standalone MPC</b> (One, Live, X, Key…): copy the folder into an <code>Expansions</code> folder at the root of your SD card / USB drive / disk.</li><li><b>MPC Software</b>: copy the folder into the software's expansions folder, then restart it.</li><li>Open <b>Browser › Expansions</b>: your cover art shows in the list.</li>",
+    overlay: "Drop your sounds or cover art",
+    newKit: "+ Kit", delKit: "Delete this kit", confirmDel: "Delete kit “{0}”?", noName: "Untitled", kit: "Kit",
+    clearPad: "Clear this pad", padMode: "Playback mode",
+    loading: "Loading {0}/{1}…", unreadable: "Unreadable: {0}", noAudio: "No audio file recognised.",
+    placed: "{0} sound(s) placed from {1}", added: "{0} sound(s) added to the library",
+    coverAdded: "Cover art added", imgBad: "Unreadable image.", dropImg: "Drop an image (JPG, PNG…)",
+    filled: "{0} pad(s) filled", noFree: "No unused sound to place",
+    preparing: "Preparing…", downloaded: "✔ {0}.zip downloaded ({1} files).", needSound: "Add at least one sound to a pad before exporting.",
+    tileSub: "{0} · {1} kit(s) · {2} sound(s)",
+    modeTitle: "Sound playback mode",
+    osDesc: "The whole sound plays, even if you release the pad right away. Best for kicks, snares, claps, percussion.",
+    noDesc: "The sound only plays while you hold the pad and stops when you release it. Best for long 808s, pads, vocals, loops.",
+    allOs: "Whole kit to One Shot", allNo: "Whole kit to Note On",
+    noPads: "No sounds in this kit yet. Drop sounds onto the pads, then come back here.",
+    done: "Done", modeSet: "{0} pad(s) set to {1}", listen: "Play (hold for Note On)"
+  }
+};
+const urlLang = new URLSearchParams(location.search).get("lang");
+let LANG = ["fr", "en"].includes(urlLang) ? urlLang : (() => { try { return localStorage.getItem("mkm-lang"); } catch (e) { return null; } })()
+  || ((navigator.language || "fr").toLowerCase().startsWith("fr") ? "fr" : "en");
+if (!I18N[LANG]) LANG = "fr";
+const t = (k, ...a) => (I18N[LANG][k] ?? I18N.fr[k] ?? k).replace(/\{(\d)\}/g, (_, i) => a[i]);
+function applyLang() {
+  document.documentElement.lang = LANG;
+  document.title = t("title");
+  document.querySelectorAll("[data-i18n]").forEach(el => el.textContent = t(el.dataset.i18n));
+  document.querySelectorAll("[data-i18n-html]").forEach(el => el.innerHTML = t(el.dataset.i18nHtml));
+  document.querySelectorAll("[data-i18n-ph]").forEach(el => el.placeholder = t(el.dataset.i18nPh));
+  document.querySelectorAll("[data-i18n-title]").forEach(el => el.title = t(el.dataset.i18nTitle));
+  document.querySelectorAll(".langsw button").forEach(b => b.classList.toggle("on", b.dataset.lang === LANG));
+  // Version hors-ligne (fichier local) : l'accueil pointe vers le site en ligne
+  const home = (location.protocol === "file:" ? "https://guizmoh.github.io/expansion-lab/" : "./") + (LANG === "en" ? "en/" : "");
+  document.querySelectorAll('a.logo, #homeLink').forEach(a => a.href = home);
+  $("cover").title = t("coverTitle");
+}
+function setLang(l) {
+  const oldDef = t("defName");
+  LANG = l;
+  try { localStorage.setItem("mkm-lang", l); } catch (e) {}
+  const u = new URL(location.href); u.searchParams.set("lang", l); history.replaceState(null, "", u);
+  if ($("expName").value.trim() === oldDef) $("expName").value = t("defName");
+  applyLang(); render(); renderCover(); if ($("modeDlg").open) renderModes();
+}
+
+/* ---------- Constantes MPC ---------- */
+const BANKS = "ABCDEFGH";
+const PAD_NOTES = [
+  37,36,42,82,40,38,46,44,48,47,45,43,49,55,51,53,
+  54,69,81,80,65,66,76,77,56,62,63,64,73,74,71,39,
+  52,57,58,59,60,61,67,68,70,72,75,78,79,35,41,50
+];
+for (let n = 83; n <= 127; n++) PAD_NOTES.push(n);
+for (let n = 0; n <= 34; n++) PAD_NOTES.push(n);
+const KEYS = ["KeyZ","KeyX","KeyC","KeyV","KeyA","KeyS","KeyD","KeyF","KeyQ","KeyW","KeyE","KeyR","Digit1","Digit2","Digit3","Digit4"];
+const KEY_LABEL = c => { const azerty = { KeyZ: "W", KeyQ: "A", KeyW: "Z", KeyA: "Q" }; return LANG === "fr" ? (azerty[c] || c.replace(/Key|Digit/, "")) : c.replace(/Key|Digit/, ""); };
+const MODE_LABEL = { oneshot: "ONE SHOT", noteon: "NOTE ON" };
+
+/* ---------- État ---------- */
+const newKit = name => ({ name, pads: new Array(128).fill(null), modes: new Array(128).fill("oneshot") });
+const state = { kits: [newKit("Kit 1")], cur: 0, bank: 0, image: null, imageUrl: null, target: 0, lib: [] };
+const $ = id => document.getElementById(id);
+const kit = () => state.kits[state.cur];
+let actx = null;
+const ctx = () => (actx = actx || new (window.AudioContext || window.webkitAudioContext)());
+
+/* ---------- Utilitaires ---------- */
+function sanitize(s) {
+  return (s || "").normalize("NFD").replace(/[̀-ͯ]/g, "")
+    .replace(/[^\w \-.()#+]/g, "_").replace(/\s+/g, " ").trim().replace(/^\.+|\.+$/g, "").slice(0, 60);
+}
+const xml = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const padLabel = i => BANKS[i >> 4] + String((i & 15) + 1).padStart(2, "0");
+const isAudio = f => /^audio\//.test(f.type) || /\.(wav|aiff?|mp3|flac|ogg|m4a)$/i.test(f.name);
+const isImage = f => /^image\//.test(f.type) || /\.(jpe?g|png|webp|gif|bmp)$/i.test(f.name);
+function status(msg, err) { const s = $("status"); s.textContent = msg; s.className = err ? "err" : ""; }
+let toastT;
+function toast(msg) { const el = $("toast"); el.textContent = msg; el.classList.add("on"); clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove("on"), 2600); }
+
+/* ---------- Fichiers / dossiers glissés ---------- */
+async function filesFromDrop(dt) {
+  const entries = [...(dt.items || [])].map(it => it.webkitGetAsEntry && it.webkitGetAsEntry()).filter(Boolean);
+  if (!entries.length) return [...dt.files];
+  const out = [];
+  const walk = async entry => {
+    if (entry.isFile) out.push(await new Promise((res, rej) => entry.file(res, rej)).catch(() => null));
+    else if (entry.isDirectory) {
+      const reader = entry.createReader();
+      let batch;
+      do {
+        batch = await new Promise(res => reader.readEntries(res, () => res([])));
+        for (const e of batch) await walk(e);
+      } while (batch.length);
+    }
+  };
+  for (const e of entries) await walk(e);
+  return out.filter(Boolean);
+}
+const hasFiles = e => [...(e.dataTransfer?.types || [])].includes("Files");
+
+/* ---------- Audio ---------- */
+function parseWav(buf) {
+  const dv = new DataView(buf);
+  if (dv.byteLength < 44 || dv.getUint32(0) !== 0x52494646 || dv.getUint32(8) !== 0x57415645) return null;
+  let p = 12, fmt = null, dataSize = null;
+  while (p + 8 <= dv.byteLength) {
+    const id = dv.getUint32(p), size = dv.getUint32(p + 4, true);
+    if (id === 0x666d7420 && size >= 16) {
+      fmt = { tag: dv.getUint16(p + 8, true), ch: dv.getUint16(p + 10, true), align: dv.getUint16(p + 20, true), bits: dv.getUint16(p + 22, true) };
+    } else if (id === 0x64617461) { dataSize = Math.min(size, dv.byteLength - p - 8); break; }
+    p += 8 + size + (size & 1);
+  }
+  if (!fmt || dataSize === null || !fmt.align) return null;
+  if (![1, 3, 0xFFFE].includes(fmt.tag) || fmt.ch < 1 || fmt.ch > 2) return null;
+  if (![8, 16, 24, 32].includes(fmt.bits)) return null;
+  return { frames: Math.floor(dataSize / fmt.align) };
+}
+function encodeWav(ab) {
+  const ch = Math.min(2, ab.numberOfChannels), n = ab.length;
+  const out = new DataView(new ArrayBuffer(44 + n * ch * 2));
+  const str = (o, s) => { for (let i = 0; i < s.length; i++) out.setUint8(o + i, s.charCodeAt(i)); };
+  str(0, "RIFF"); out.setUint32(4, 36 + n * ch * 2, true); str(8, "WAVEfmt ");
+  out.setUint32(16, 16, true); out.setUint16(20, 1, true); out.setUint16(22, ch, true);
+  out.setUint32(24, ab.sampleRate, true); out.setUint32(28, ab.sampleRate * ch * 2, true);
+  out.setUint16(32, ch * 2, true); out.setUint16(34, 16, true); str(36, "data"); out.setUint32(40, n * ch * 2, true);
+  const data = []; for (let c = 0; c < ch; c++) data.push(ab.getChannelData(c));
+  let o = 44;
+  for (let i = 0; i < n; i++) for (let c = 0; c < ch; c++) {
+    const v = Math.max(-1, Math.min(1, data[c][i]));
+    out.setInt16(o, v < 0 ? v * 0x8000 : v * 0x7FFF, true); o += 2;
+  }
+  return new Uint8Array(out.buffer);
+}
+function peaksOf(ab, n = 60) {
+  const d = ab.getChannelData(0), step = Math.max(1, Math.floor(d.length / n)), out = [];
+  let max = 0;
+  for (let i = 0; i < n; i++) { let m = 0; for (let j = i * step; j < Math.min(d.length, (i + 1) * step); j++) m = Math.max(m, Math.abs(d[j])); out.push(m); max = Math.max(max, m); }
+  return out.map(v => max ? v / max : 0);
+}
+async function loadSample(file) {
+  const buf = await file.arrayBuffer();
+  const info = parseWav(buf);
+  let ab = null;
+  try { ab = await ctx().decodeAudioData(buf.slice(0)); } catch (e) { if (!info) throw e; }
+  let bytes, frames;
+  if (info) { bytes = new Uint8Array(buf); frames = info.frames; }
+  else { bytes = encodeWav(ab); frames = ab.length; }
+  const name = sanitize(file.name.replace(/\.[^.]+$/, "")) || "Sample";
+  return { name, bytes, frames, buffer: ab, peaks: ab ? peaksOf(ab) : null, url: URL.createObjectURL(new Blob([bytes], { type: "audio/wav" })) };
+}
+async function loadMany(files) {
+  const audio = files.filter(isAudio).sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
+  const out = [], bad = [];
+  for (const f of audio) {
+    status(t("loading", out.length + bad.length + 1, audio.length));
+    try { const s = await loadSample(f); out.push(s); state.lib.push(s); } catch (e) { bad.push(f.name); }
+  }
+  if (bad.length) status(t("unreadable", bad.join(", ")), true); else status("");
+  if (!audio.length) status(t("noAudio"), true);
+  return out;
+}
+function placeOnPads(samples, start) {
+  let i = start, n = 0;
+  for (const s of samples) { if (i > 127) break; kit().pads[i++] = s; n++; }
+  if (n) toast(t("placed", n, padLabel(start)));
+  render();
+}
+async function addToPads(files, start) { placeOnPads(await loadMany(files), start); }
+async function addToLib(files) { const s = await loadMany(files); if (s.length) toast(t("added", s.length)); render(); }
+
+/* Lecture : retourne une fonction stop() (utilisée en mode Note On) */
+function play(sample, el) {
+  if (!sample) return () => {};
+  if (el) { el.classList.remove("hit"); void el.offsetWidth; el.classList.add("hit"); setTimeout(() => el.classList.remove("hit"), 140); }
+  if (sample.buffer) {
+    const c = ctx(); c.resume();
+    const src = c.createBufferSource(), g = c.createGain();
+    src.buffer = sample.buffer; src.connect(g); g.connect(c.destination); src.start();
+    return () => { try { g.gain.setTargetAtTime(0, c.currentTime, 0.015); src.stop(c.currentTime + 0.08); } catch (e) {} };
+  }
+  const a = new Audio(sample.url); a.play().catch(() => {});
+  return () => a.pause();
+}
+function playPad(i, el) {
+  const stop = play(kit().pads[i], el);
+  return kit().modes[i] === "noteon" ? stop : () => {};
+}
+function drawWave(canvas, peaks, color) {
+  const dpr = window.devicePixelRatio || 1, w = canvas.clientWidth || 46, h = canvas.clientHeight || 22;
+  canvas.width = w * dpr; canvas.height = h * dpr;
+  const g = canvas.getContext("2d"); g.scale(dpr, dpr); g.fillStyle = color;
+  if (!peaks) { g.fillRect(0, h / 2 - .5, w, 1); return; }
+  const bw = w / peaks.length;
+  peaks.forEach((p, i) => { const bh = Math.max(1, p * h); g.fillRect(i * bw, (h - bh) / 2, Math.max(1, bw - 1), bh); });
+}
+
+/* ---------- Image ---------- */
+function canvasBlob(c) { return new Promise(r => c.toBlob(r, "image/jpeg", 0.9)); }
+async function setImage(file) {
+  try {
+    const bmp = await createImageBitmap(file);
+    const s = Math.min(bmp.width, bmp.height), c = document.createElement("canvas");
+    c.width = c.height = 1000;
+    c.getContext("2d").drawImage(bmp, (bmp.width - s) / 2, (bmp.height - s) / 2, s, s, 0, 0, 1000, 1000);
+    if (state.imageUrl) URL.revokeObjectURL(state.imageUrl);
+    state.image = await canvasBlob(c); state.imageUrl = URL.createObjectURL(state.image);
+    renderCover(); toast(t("coverAdded"));
+  } catch (e) { status(t("imgBad"), true); }
+}
+function drawDefault(title, size = 1000) {
+  const c = document.createElement("canvas"); c.width = c.height = size;
+  const g = c.getContext("2d"), k = size / 1000;
+  const gr = g.createRadialGradient(500 * k, 300 * k, 50 * k, 500 * k, 500 * k, 800 * k);
+  gr.addColorStop(0, "#3a1714"); gr.addColorStop(1, "#0b0c0f"); g.fillStyle = gr; g.fillRect(0, 0, size, size);
+  for (let r = 0; r < 4; r++) for (let q = 0; q < 4; q++) {
+    const lit = [0, 5, 10, 15, 6].includes(r * 4 + q);
+    g.fillStyle = lit ? "#ff3b30" : "#2a2d34";
+    if (lit) { g.shadowColor = "#ff3b30"; g.shadowBlur = 40 * k; } else g.shadowBlur = 0;
+    g.beginPath(); g.roundRect((190 + q * 160) * k, (110 + r * 160) * k, 140 * k, 140 * k, 16 * k); g.fill();
+  }
+  g.shadowBlur = 0; g.fillStyle = "#fff"; g.textAlign = "center"; g.font = `700 ${84 * k}px Rajdhani, Segoe UI, Arial, sans-serif`;
+  let tt = title.toUpperCase(); while (g.measureText(tt).width > 900 * k && tt.length > 4) tt = tt.slice(0, -2);
+  g.fillText(tt, 500 * k, 880 * k);
+  return c;
+}
+let autoT;
+function renderCover() {
+  const cv = $("cover"); cv.querySelector("img")?.remove();
+  const title = $("expName").value.trim() || t("defName");
+  if (state.imageUrl) {
+    const im = new Image(); im.src = state.imageUrl; cv.prepend(im); cv.classList.add("has");
+    $("tileImg").src = state.imageUrl; $("coverClear").style.display = "inline-block";
+    cv.querySelector(".hint").innerHTML = t("coverChange");
+  } else {
+    cv.classList.remove("has"); $("coverClear").style.display = "none";
+    cv.querySelector(".hint").innerHTML = t("coverHint");
+    clearTimeout(autoT);
+    autoT = setTimeout(() => { $("tileImg").src = drawDefault(title, 200).toDataURL(); }, 120);
+  }
+}
+
+/* ---------- Rendu ---------- */
+function swapPads(a, b) {
+  const P = kit().pads, M = kit().modes;
+  [P[a], P[b]] = [P[b], P[a]]; [M[a], M[b]] = [M[b], M[a]];
+}
+function render() {
+  const kits = $("kits"); kits.innerHTML = "";
+  state.kits.forEach((k, i) => {
+    const b = document.createElement("button"); b.textContent = k.name || t("noName");
+    if (i === state.cur) b.className = "on";
+    b.onclick = () => { state.cur = i; state.bank = 0; render(); };
+    b.ondragover = e => { e.preventDefault(); if (state.cur !== i) { state.cur = i; render(); } };
+    kits.appendChild(b);
+  });
+  const add = document.createElement("button"); add.textContent = t("newKit");
+  add.onclick = () => { state.kits.push(newKit(t("kit") + " " + (state.kits.length + 1))); state.cur = state.kits.length - 1; state.bank = 0; render(); };
+  kits.appendChild(add);
+  if (state.kits.length > 1) {
+    const del = document.createElement("button"); del.className = "del"; del.textContent = t("delKit");
+    del.onclick = () => { if (!confirm(t("confirmDel", kit().name))) return; state.kits.splice(state.cur, 1); state.cur = Math.max(0, state.cur - 1); state.bank = 0; render(); };
+    kits.appendChild(del);
+  }
+  if (document.activeElement !== $("kitName")) $("kitName").value = kit().name;
+  $("lcdBank").textContent = t("bank") + " " + BANKS[state.bank];
+  $("lcdCount").textContent = kit().pads.filter(Boolean).length + " / 128 pads";
+
+  const banks = $("banks"); banks.innerHTML = "";
+  [...BANKS].forEach((L, b) => {
+    const el = document.createElement("button"); el.textContent = L;
+    if (b === state.bank) el.className = "on";
+    if (kit().pads.slice(b * 16, b * 16 + 16).some(Boolean)) el.insertAdjacentHTML("beforeend", '<span class="dot"></span>');
+    el.onclick = () => { state.bank = b; render(); };
+    el.ondragover = e => { e.preventDefault(); if (state.bank !== b) { state.bank = b; render(); } };
+    banks.appendChild(el);
+  });
+
+  const pads = $("pads"); pads.innerHTML = "";
+  for (let row = 3; row >= 0; row--) for (let col = 0; col < 4; col++) {
+    const local = row * 4 + col, i = state.bank * 16 + local, p = kit().pads[i], mode = kit().modes[i];
+    const el = document.createElement("div"); el.className = "pad" + (p ? " full" : ""); el.dataset.i = i;
+    el.innerHTML = `<span class="id">${padLabel(i)}</span><span class="key">${KEY_LABEL(KEYS[local])}</span>`;
+    if (p) {
+      const cv = document.createElement("canvas"); el.appendChild(cv);
+      el.insertAdjacentHTML("beforeend", `<span class="mode ${mode}">${MODE_LABEL[mode]}</span>`);
+      const nm = document.createElement("div"); nm.className = "nm"; nm.textContent = p.name; el.appendChild(nm);
+      const gear = document.createElement("button"); gear.className = "tool gear"; gear.textContent = "⚙"; gear.title = t("padMode");
+      gear.onpointerdown = e => e.stopPropagation();
+      gear.onclick = e => { e.stopPropagation(); openModes(i); };
+      const x = document.createElement("button"); x.className = "tool x"; x.textContent = "✕"; x.title = t("clearPad");
+      x.onpointerdown = e => e.stopPropagation();
+      x.onclick = e => { e.stopPropagation(); kit().pads[i] = null; kit().modes[i] = "oneshot"; render(); };
+      el.append(gear, x);
+      el.draggable = true;
+      el.ondragstart = e => { stopHeld(); e.dataTransfer.setData("text/x-pad", String(i)); e.dataTransfer.effectAllowed = "move"; el.classList.add("dragging"); };
+      el.ondragend = () => el.classList.remove("dragging");
+      el.onpointerdown = e => { if (e.button === 0) { stopHeld(); held = playPad(i, el); } };
+      el.oncontextmenu = e => { e.preventDefault(); openModes(i); };
+      requestAnimationFrame(() => drawWave(cv, p.peaks, mode === "noteon" ? "#8fe4ff" : "#ff6b55"));
+    } else {
+      el.insertAdjacentHTML("beforeend", '<span class="plus">+</span>');
+      el.onclick = () => { state.target = i; $("sndFile").click(); };
+    }
+    let depth = 0;
+    el.ondragenter = e => { e.preventDefault(); depth++; el.classList.add("over"); };
+    el.ondragover = e => { e.preventDefault(); e.dataTransfer.dropEffect = hasFiles(e) ? "copy" : "move"; };
+    el.ondragleave = () => { if (--depth <= 0) { depth = 0; el.classList.remove("over"); } };
+    el.ondrop = async e => {
+      e.preventDefault(); e.stopPropagation(); el.classList.remove("over"); hideOverlay();
+      const src = e.dataTransfer.getData("text/x-pad"), lib = e.dataTransfer.getData("text/x-lib");
+      if (src !== "") { swapPads(+src, i); render(); }
+      else if (lib !== "") { kit().pads[i] = state.lib[+lib]; render(); play(kit().pads[i], document.querySelector(`.pad[data-i="${i}"]`)); }
+      else if (hasFiles(e)) {
+        const files = await filesFromDrop(e.dataTransfer);
+        if (files.some(isAudio)) addToPads(files, i);
+        else if (files.some(isImage)) setImage(files.find(isImage));
+      }
+    };
+    pads.appendChild(el);
+  }
+  renderLib();
+  const total = state.kits.reduce((n, k) => n + k.pads.filter(Boolean).length, 0);
+  $("tileTitle").textContent = $("expName").value.trim() || t("defName");
+  $("tileSub").textContent = t("tileSub", $("expAuthor").value.trim() || "Custom", state.kits.length, total);
+}
+function renderLib() {
+  const q = $("libSearch").value.trim().toLowerCase(), used = new Set(state.kits.flatMap(k => k.pads.filter(Boolean)));
+  const ul = $("lib"); ul.innerHTML = "";
+  $("libTools").style.display = $("libFoot").style.display = state.lib.length ? "flex" : "none";
+  state.lib.forEach((s, idx) => {
+    if (q && !s.name.toLowerCase().includes(q)) return;
+    const li = document.createElement("li"); li.draggable = true; li.title = t("libItem");
+    if (used.has(s)) li.className = "used";
+    li.innerHTML = '<span class="grip">⋮⋮</span>';
+    const cv = document.createElement("canvas"); li.appendChild(cv);
+    const tt = document.createElement("span"); tt.className = "t"; tt.textContent = s.name; li.appendChild(tt);
+    const rm = document.createElement("button"); rm.textContent = "✕"; rm.title = t("remove");
+    rm.onclick = e => { e.stopPropagation(); state.lib.splice(idx, 1); render(); };
+    li.appendChild(rm);
+    li.onclick = () => play(s);
+    li.ondragstart = e => { e.dataTransfer.setData("text/x-lib", String(idx)); e.dataTransfer.effectAllowed = "copy"; };
+    ul.appendChild(li);
+    requestAnimationFrame(() => drawWave(cv, s.peaks, used.has(s) ? "#3ddc84" : "#8c94a3"));
+  });
+}
+
+/* ---------- Page « Mode de lecture » ---------- */
+let flashPad = null;
+function openModes(focus) {
+  flashPad = focus ?? null;
+  renderModes();
+  const d = $("modeDlg"); if (!d.open) d.showModal();
+  if (flashPad !== null) d.querySelector(`.prow[data-i="${flashPad}"]`)?.scrollIntoView({ block: "center" });
+}
+function renderModes() {
+  const list = $("modeList"); list.innerHTML = "";
+  const used = kit().pads.map((p, i) => p ? i : -1).filter(i => i >= 0);
+  if (!used.length) { list.innerHTML = `<div class="empty">${t("noPads")}</div>`; return; }
+  for (const i of used) {
+    const row = document.createElement("div"); row.className = "prow" + (i === flashPad ? " flash" : ""); row.dataset.i = i;
+    const play_ = document.createElement("button"); play_.className = "play"; play_.textContent = "▶"; play_.title = t("listen");
+    let stop = null;
+    play_.onpointerdown = () => { stop = playPad(i); };
+    const end = () => { if (stop) { stop(); stop = null; } };
+    play_.onpointerup = end; play_.onpointerleave = end;
+    row.innerHTML = `<span class="pid">${padLabel(i)}</span>`;
+    const nm = document.createElement("span"); nm.className = "pn"; nm.textContent = kit().pads[i].name;
+    const seg = document.createElement("div"); seg.className = "seg";
+    for (const m of ["oneshot", "noteon"]) {
+      const b = document.createElement("button"); b.textContent = MODE_LABEL[m];
+      b.className = (m === "oneshot" ? "os" : "no") + (kit().modes[i] === m ? " on" : "");
+      b.onclick = () => { kit().modes[i] = m; renderModes(); render(); };
+      seg.appendChild(b);
+    }
+    row.append(play_, nm, seg);
+    row.insertBefore(row.querySelector(".pid"), play_);
+    list.appendChild(row);
+  }
+}
+document.querySelectorAll("[data-all]").forEach(b => b.onclick = () => {
+  const m = b.dataset.all; let n = 0;
+  kit().pads.forEach((p, i) => { if (p) { kit().modes[i] = m; n++; } });
+  flashPad = null; renderModes(); render(); if (n) toast(t("modeSet", n, MODE_LABEL[m]));
+});
+$("modeBtn").onclick = () => openModes();
+$("modeClose").onclick = $("modeDone").onclick = () => $("modeDlg").close();
+$("modeDlg").addEventListener("click", e => { if (e.target === $("modeDlg")) $("modeDlg").close(); });
+
+/* ---------- Génération XPM ---------- */
+function layerXml(n, name, frames) {
+  return `<Layer number="${n}"><Active>True</Active><Volume>1.000000</Volume><Pan>0.500000</Pan><Pitch>0.000000</Pitch>` +
+    `<TuneCoarse>0</TuneCoarse><TuneFine>0</TuneFine><VelStart>0</VelStart><VelEnd>127</VelEnd>` +
+    `<SampleStart>0</SampleStart><SampleEnd>${frames}</SampleEnd><Loop>False</Loop><LoopStart>0</LoopStart><LoopEnd>0</LoopEnd>` +
+    `<LoopCrossfadeLength>0</LoopCrossfadeLength><LoopTune>0</LoopTune><Mute>False</Mute><RootNote>0</RootNote><KeyTrack>False</KeyTrack>` +
+    `<SampleName>${xml(name)}</SampleName><SampleFile></SampleFile><SliceIndex>129</SliceIndex><Direction>0</Direction><Offset>0</Offset>` +
+    `<SliceStart>0</SliceStart><SliceEnd>${frames}</SliceEnd><SliceLoopStart>0</SliceLoopStart><SliceLoop>0</SliceLoop></Layer>\n`;
+}
+const SENDS = "<Send1>0.000000</Send1><Send2>0.000000</Send2><Send3>0.000000</Send3><Send4>0.000000</Send4>";
+function instrumentXml(n, name, frames, oneShot) {
+  return `<Instrument number="${n}">\n<CueBusEnable>False</CueBusEnable>` +
+    `<AudioRoute><AudioRoute>0</AudioRoute><AudioRouteSubIndex>0</AudioRouteSubIndex><InsertsEnabled>True</InsertsEnabled></AudioRoute>` +
+    SENDS + `<Volume>0.707946</Volume><Mute>False</Mute><Solo>False</Solo><Pan>0.500000</Pan><AutomationFilter>1</AutomationFilter>` +
+    `<TuneCoarse>0</TuneCoarse><TuneFine>0</TuneFine><Mono>True</Mono><Polyphony>1</Polyphony><FilterKeytrack>0.000000</FilterKeytrack>` +
+    `<LowNote>0</LowNote><HighNote>127</HighNote><IgnoreBaseNote>False</IgnoreBaseNote><ZonePlay>1</ZonePlay><MuteGroup>0</MuteGroup>` +
+    `<MuteTarget1>0</MuteTarget1><MuteTarget2>0</MuteTarget2><MuteTarget3>0</MuteTarget3><MuteTarget4>0</MuteTarget4>` +
+    `<SimultTarget1>0</SimultTarget1><SimultTarget2>0</SimultTarget2><SimultTarget3>0</SimultTarget3><SimultTarget4>0</SimultTarget4>` +
+    `<LfoPitch>0.000000</LfoPitch><LfoCutoff>0.000000</LfoCutoff><LfoVolume>0.000000</LfoVolume><LfoPan>0.000000</LfoPan>` +
+    `<OneShot>${oneShot ? "True" : "False"}</OneShot><FilterType>2</FilterType><Cutoff>1.000000</Cutoff><Resonance>0.000000</Resonance><FilterEnvAmt>0.000000</FilterEnvAmt>` +
+    `<AfterTouchToFilter>0.000000</AfterTouchToFilter><VelocityToStart>0.000000</VelocityToStart><VelocityToFilterAttack>0.000000</VelocityToFilterAttack>` +
+    `<VelocityToFilter>0.000000</VelocityToFilter><VelocityToFilterEnvelope>0.000000</VelocityToFilterEnvelope>` +
+    `<FilterAttack>0.000000</FilterAttack><FilterDecay>0.047244</FilterDecay><FilterSustain>1.000000</FilterSustain><FilterRelease>0.000000</FilterRelease>` +
+    `<FilterHold>0.000000</FilterHold><FilterDecayType>True</FilterDecayType><FilterADEnvelope>True</FilterADEnvelope>` +
+    `<VolumeHold>0.000000</VolumeHold><VolumeDecayType>True</VolumeDecayType><VolumeADEnvelope>True</VolumeADEnvelope>` +
+    `<VolumeAttack>0.000000</VolumeAttack><VolumeDecay>0.047244</VolumeDecay><VolumeSustain>1.000000</VolumeSustain><VolumeRelease>0.000000</VolumeRelease>` +
+    `<VelocityToPitch>0.000000</VelocityToPitch><VelocityToVolumeAttack>0.000000</VelocityToVolumeAttack>` +
+    `<VelocitySensitivity>1.000000</VelocitySensitivity><VelocityToPan>0.000000</VelocityToPan>\n<Layers>\n` +
+    layerXml(1, name, frames) + layerXml(2, "", 0) + layerXml(3, "", 0) + layerXml(4, "", 0) +
+    `</Layers>\n</Instrument>\n`;
+}
+function buildXpm(kitName, k, nameOf) {
+  let s = `<?xml version="1.0" encoding="UTF-8"?>\n\n<MPCVObject>\n<Version><File_Version>1.7</File_Version><Application>MPC-V</Application>` +
+    `<Application_Version>2.10.0.0</Application_Version><Platform>Windows</Platform></Version>\n` +
+    `<Program type="Drum">\n<ProgramName>${xml(kitName)}</ProgramName>\n` +
+    `<AudioRoute><AudioRoute>2</AudioRoute><AudioRouteSubIndex>0</AudioRouteSubIndex><InsertsEnabled>True</InsertsEnabled></AudioRoute>` +
+    SENDS + `<Volume>0.707946</Volume><Mute>False</Mute><Solo>False</Solo><Pan>0.500000</Pan><AutomationFilter>1</AutomationFilter>` +
+    `<Pitch>0.000000</Pitch><TuneCoarse>0</TuneCoarse><TuneFine>0</TuneFine><Mono>False</Mono><Program_Polyphony>128</Program_Polyphony>` +
+    `<PortamentoTime>0.000000</PortamentoTime><PortamentoLegato>False</PortamentoLegato><PortamentoQuantized>False</PortamentoQuantized>\n<Instruments>\n`;
+  for (let i = 0; i < 128; i++) { const p = k.pads[i]; s += instrumentXml(i + 1, p ? nameOf.get(p) : "", p ? p.frames : 0, k.modes[i] !== "noteon"); }
+  s += `</Instruments>\n<PadNoteMap>\n`;
+  for (let i = 0; i < 128; i++) s += `<PadNote number="${i + 1}"><Note>${PAD_NOTES[i]}</Note></PadNote>\n`;
+  s += `</PadNoteMap>\n<PadGroupMap>\n`;
+  for (let i = 0; i < 128; i++) s += `<PadGroup number="${i + 1}"><Group>0</Group></PadGroup>\n`;
+  return s + `</PadGroupMap>\n</Program>\n</MPCVObject>\n`;
+}
+function buildExpansionXml(title, author, desc, img) {
+  const slug = (title + "." + author).toLowerCase().replace(/[^a-z0-9]+/g, ".").replace(/^\.+|\.+$/g, "") || "custom";
+  return `<?xml version="1.0" encoding="UTF-8"?>\n\n<expansion version="2.0.0.0" buildVersion="2.10.0.0">\n  <local/>\n` +
+    `  <identifier>com.expansionlab.${slug}</identifier>\n  <title>${xml(title)}</title>\n  <manufacturer>${xml(author)}</manufacturer>\n` +
+    `  <version>1.0.0.0</version>\n  <type>drum</type>\n  <priority>50</priority>\n  <img>${xml(img)}</img>\n` +
+    `  <description>${xml(desc)}</description>\n  <separator>-</separator>\n</expansion>\n`;
+}
+
+/* ---------- ZIP (sans compression) ---------- */
+const CRC = (() => { const tb = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; tb[n] = c; } return tb; })();
+function crc32(u8) { let c = 0xFFFFFFFF; for (let i = 0; i < u8.length; i++) c = CRC[(c ^ u8[i]) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+function makeZip(files) {
+  const enc = new TextEncoder(), parts = [], central = [], d = new Date();
+  const time = (d.getHours() << 11) | (d.getMinutes() << 5) | (d.getSeconds() >> 1);
+  const date = ((d.getFullYear() - 1980) << 9) | ((d.getMonth() + 1) << 5) | d.getDate();
+  let off = 0, cdSize = 0;
+  for (const f of files) {
+    const n = enc.encode(f.name), crc = crc32(f.data), sz = f.data.length;
+    const lh = new DataView(new ArrayBuffer(30));
+    lh.setUint32(0, 0x04034b50, true); lh.setUint16(4, 20, true); lh.setUint16(6, 0x800, true);
+    lh.setUint16(10, time, true); lh.setUint16(12, date, true); lh.setUint32(14, crc, true);
+    lh.setUint32(18, sz, true); lh.setUint32(22, sz, true); lh.setUint16(26, n.length, true);
+    parts.push(lh.buffer, n, f.data);
+    const ch = new DataView(new ArrayBuffer(46));
+    ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true); ch.setUint16(8, 0x800, true);
+    ch.setUint16(12, time, true); ch.setUint16(14, date, true); ch.setUint32(16, crc, true);
+    ch.setUint32(20, sz, true); ch.setUint32(24, sz, true); ch.setUint16(28, n.length, true); ch.setUint32(42, off, true);
+    central.push(ch.buffer, n); cdSize += 46 + n.length; off += 30 + n.length + sz;
+  }
+  const e = new DataView(new ArrayBuffer(22));
+  e.setUint32(0, 0x06054b50, true); e.setUint16(8, files.length, true); e.setUint16(10, files.length, true);
+  e.setUint32(12, cdSize, true); e.setUint32(16, off, true);
+  return new Blob([...parts, ...central, e.buffer], { type: "application/zip" });
+}
+
+/* ---------- Export ---------- */
+async function buildPackage(asExpansion) {
+  const enc = new TextEncoder();
+  const kits = (asExpansion ? state.kits : [kit()]).filter(k => k.pads.some(Boolean));
+  if (!kits.length) throw new Error(t("needSound"));
+  const title = sanitize($("expName").value) || sanitize(t("defName"));
+  const folder = asExpansion ? title : (sanitize(kits[0].name) || "Kit");
+  const files = [], used = new Set(), nameOf = new Map(), usedKits = new Set();
+  const unique = (base, set) => { let n = base, i = 2; while (set.has(n.toLowerCase())) n = base + "_" + i++; set.add(n.toLowerCase()); return n; };
+  for (const k of kits) {
+    for (const p of k.pads) if (p && !nameOf.has(p)) {
+      const n = unique(p.name, used); nameOf.set(p, n);
+      files.push({ name: `${folder}/${n}.wav`, data: p.bytes });
+    }
+    const kn = unique(sanitize(k.name) || "Kit", usedKits);
+    files.unshift({ name: `${folder}/${kn}.xpm`, data: enc.encode(buildXpm(kn, k, nameOf)) });
+  }
+  if (asExpansion) {
+    const img = state.image || await canvasBlob(drawDefault($("expName").value.trim() || title));
+    const imgName = title + ".jpg";
+    files.unshift({ name: `${folder}/${imgName}`, data: new Uint8Array(await img.arrayBuffer()) });
+    files.unshift({ name: `${folder}/Expansion.xml`, data: enc.encode(buildExpansionXml(title, sanitize($("expAuthor").value) || "Custom", $("expDesc").value.trim(), imgName)) });
+  }
+  return { folder, files, blob: makeZip(files) };
+}
+async function doExport(asExpansion) {
+  try {
+    status(t("preparing"));
+    const pkg = await buildPackage(asExpansion);
+    const a = document.createElement("a"); a.href = URL.createObjectURL(pkg.blob); a.download = pkg.folder + ".zip";
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 60000);
+    status(t("downloaded", pkg.folder, pkg.files.length));
+    $("kofiCard").classList.add("on"); $("kofiFoot").style.display = "none";
+  } catch (e) { status(e.message, true); }
+}
+
+/* ---------- Glisser-déposer global ---------- */
+let dragDepth = 0;
+const overlay = $("overlay");
+function hideOverlay() { dragDepth = 0; overlay.classList.remove("on"); }
+window.addEventListener("dragenter", e => { if (hasFiles(e)) { dragDepth++; overlay.classList.add("on"); } });
+window.addEventListener("dragleave", e => { if (hasFiles(e) && --dragDepth <= 0) hideOverlay(); });
+window.addEventListener("dragover", e => e.preventDefault());
+window.addEventListener("drop", async e => {
+  e.preventDefault(); hideOverlay();
+  if (!hasFiles(e)) return;
+  const files = await filesFromDrop(e.dataTransfer);
+  const img = files.find(isImage);
+  if (img && !files.some(isAudio)) setImage(img); else addToLib(files);
+});
+function dropZone(el, onFiles) {
+  let d = 0;
+  el.addEventListener("dragenter", e => { if (hasFiles(e)) { d++; el.classList.add("over"); } });
+  el.addEventListener("dragleave", () => { if (--d <= 0) { d = 0; el.classList.remove("over"); } });
+  el.addEventListener("drop", async e => {
+    if (!hasFiles(e)) return;
+    e.preventDefault(); e.stopPropagation(); d = 0; el.classList.remove("over"); hideOverlay();
+    onFiles(await filesFromDrop(e.dataTransfer));
+  });
+}
+dropZone($("cover"), files => { const img = files.find(isImage); img ? setImage(img) : toast(t("dropImg")); });
+dropZone($("libDrop"), files => addToLib(files));
+
+/* ---------- Pads tenus (Note On) ---------- */
+let held = () => {};
+function stopHeld() { held(); held = () => {}; }
+window.addEventListener("pointerup", stopHeld);
+window.addEventListener("pointercancel", stopHeld);
+const heldKeys = {};
+
+/* ---------- Événements ---------- */
+$("btnExp").onclick = () => doExport(true);
+$("btnKit").onclick = () => doExport(false);
+$("kitName").oninput = e => { kit().name = e.target.value; render(); };
+$("expName").oninput = () => { render(); if (!state.image) renderCover(); };
+$("expAuthor").oninput = render;
+$("libSearch").oninput = renderLib;
+$("sndFile").onchange = e => { addToPads([...e.target.files], state.target); e.target.value = ""; };
+$("libFile").onchange = e => { addToLib([...e.target.files]); e.target.value = ""; };
+$("libDrop").onclick = () => $("libFile").click();
+$("libClear").onclick = () => { state.lib = []; render(); };
+$("libFill").onclick = () => {
+  const used = new Set(state.kits.flatMap(k => k.pads.filter(Boolean)));
+  const free = state.lib.filter(s => !used.has(s));
+  let n = 0;
+  for (let i = 0; i < 128 && n < free.length; i++) if (!kit().pads[i]) kit().pads[i] = free[n++];
+  toast(n ? t("filled", n) : t("noFree")); render();
+};
+$("cover").onclick = () => $("imgFile").click();
+$("imgFile").onchange = e => { if (e.target.files[0]) setImage(e.target.files[0]); e.target.value = ""; };
+$("coverClear").onclick = e => { e.stopPropagation(); if (state.imageUrl) URL.revokeObjectURL(state.imageUrl); state.image = state.imageUrl = null; renderCover(); };
+document.querySelectorAll(".langsw button").forEach(b => b.onclick = () => setLang(b.dataset.lang));
+window.addEventListener("keydown", e => {
+  if (e.repeat || e.ctrlKey || e.metaKey || e.altKey || /INPUT|TEXTAREA/.test(document.activeElement.tagName) || $("modeDlg").open) return;
+  const local = KEYS.indexOf(e.code);
+  if (local >= 0) { const i = state.bank * 16 + local; heldKeys[e.code] = playPad(i, document.querySelector(`.pad[data-i="${i}"]`)); }
+  else if (e.key === "ArrowLeft") { state.bank = (state.bank + 7) % 8; render(); }
+  else if (e.key === "ArrowRight") { state.bank = (state.bank + 1) % 8; render(); }
+});
+window.addEventListener("keyup", e => { if (heldKeys[e.code]) { heldKeys[e.code](); delete heldKeys[e.code]; } });
+
+/* ---------- Appli installable (Windows / PWA) ---------- */
+let installEvt = null;
+window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); installEvt = e; $("installBtn").style.display = "inline-block"; });
+$("installBtn").onclick = async () => { if (!installEvt) return; installEvt.prompt(); await installEvt.userChoice; installEvt = null; $("installBtn").style.display = "none"; };
+if ("serviceWorker" in navigator && location.protocol.startsWith("http")) navigator.serviceWorker.register("sw.js").catch(() => {});
+
+/* ---------- Démarrage ---------- */
+$("expName").value = t("defName");
+applyLang(); render(); renderCover();
+if (document.fonts) document.fonts.ready.then(() => { if (!state.image) renderCover(); });
+</script>
+</body>
+</html>

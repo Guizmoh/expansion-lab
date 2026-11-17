@@ -5,7 +5,7 @@ a{color:inherit}
 .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
 nav{display:flex;align-items:center;gap:10px;padding:18px 0;flex-wrap:wrap}
 nav .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.04em;text-decoration:none}
-nav .brand span{color:var(--red)}
+nav .brand .bt em{font-style:normal;color:var(--red)}
 nav .sp{flex:1}
 nav a.gh{font-size:14px;color:var(--muted);text-decoration:none;border:1px solid var(--line);padding:7px 12px;border-radius:20px}
 nav a.gh:hover{color:var(--text);border-color:#555}

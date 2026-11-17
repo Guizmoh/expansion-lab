@@ -1,8 +1,8 @@
 {
-  "name": "MPC Kit Maker",
-  "short_name": "MPC Kit Maker",
+  "name": "Expansion Lab",
+  "short_name": "Expansion Lab",
   "description": "Créateur gratuit de kits & expansions MPC · Free MPC drum kit & expansion maker",
-  "start_url": "./mpc-kit-maker.html",
+  "start_url": "./mpc-expansion-maker.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#0c0d10",
