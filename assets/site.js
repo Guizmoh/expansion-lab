@@ -14,3 +14,15 @@
   });
   if ("serviceWorker" in navigator && location.protocol.indexOf("http") === 0) navigator.serviceWorker.register(root + "sw.js").catch(function () {});
 })();
+
+// Compteur de téléchargements (Release GitHub) / Download counter
+(function () {
+  var el = document.getElementById("dlCount");
+  if (!el || !window.fetch) return;
+  fetch("https://api.github.com/repos/Guizmoh/expansion-lab/releases").then(function (r) { return r.json(); }).then(function (rs) {
+    var n = 0;
+    (rs || []).forEach(function (r) { (r.assets || []).forEach(function (a) { n += a.download_count || 0; }); });
+    el.textContent = "⬇ " + n.toLocaleString() + " " + el.getAttribute(n > 1 ? "data-many" : "data-one");
+    el.hidden = false;
+  }).catch(function () {});
+})();

@@ -9,7 +9,7 @@
 
 **👉 Français : [https://guizmoh.github.io/expansion-lab/](https://guizmoh.github.io/expansion-lab/) · English: [https://guizmoh.github.io/expansion-lab/en/](https://guizmoh.github.io/expansion-lab/en/)**
 
-**⬇ Windows :** [Expansion-Lab-Windows.zip](https://guizmoh.github.io/expansion-lab/downloads/Expansion-Lab-Windows.zip) · ou installez-la comme une appli depuis Edge/Chrome / or install it as an app from Edge/Chrome
+**⬇ Windows :** [Expansion-Lab-Windows.zip](https://github.com/Guizmoh/expansion-lab/releases/latest/download/Expansion-Lab-Windows.zip) · ou installez-la comme une appli depuis Edge/Chrome / or install it as an app from Edge/Chrome
 
 ---
 
