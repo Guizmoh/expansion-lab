@@ -119,6 +119,21 @@ button:hover{border-color:#5a6170;background:#2d323b}
 .pad .nm{position:absolute;left:8px;right:8px;bottom:6px;font-size:11px;font-weight:600;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pad .mode{position:absolute;right:6px;bottom:22px;font:700 9px Rajdhani,sans-serif;letter-spacing:.08em;padding:1px 5px;border-radius:4px;background:#0008;color:#ffb3a8}
 .pad .mode.noteon{background:#13c3ff33;color:#8fe4ff}
+.pad .dyn{position:absolute;left:6px;bottom:22px;font:700 9px Rajdhani,sans-serif;letter-spacing:.08em;padding:1px 5px;border-radius:4px;background:#3ddc8426;color:#8ff0b8}
+.engrow{display:flex;justify-content:center;margin-bottom:12px}
+.engine{display:inline-flex;border:1px solid #3a404b;border-radius:10px;overflow:hidden;margin-right:6px}
+.engine button{border:0;border-radius:0;background:transparent;color:var(--muted);padding:6px 12px;font:700 13px Rajdhani,sans-serif;letter-spacing:.08em}
+.engine button.on{background:#eef0f4;color:#111}
+.engine button small{font:600 10px Inter,sans-serif;opacity:.7;margin-left:4px;letter-spacing:0}
+#mpceNote{display:none;margin:0 0 12px;padding:10px 14px;border-radius:10px;background:#ffffff08;border:1px dashed #5d6472;color:#c9ced8;font-size:13px}
+#mpceNote b{color:#fff}
+.mpce-on #mpceNote{display:block}
+.mpce-on .pad::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(#ffffff2e,#ffffff2e) center/1px 100% no-repeat,linear-gradient(#ffffff2e,#ffffff2e) center/100% 1px no-repeat}
+.dynbtns{display:inline-flex;gap:4px}
+.dynbtns button{width:26px;height:26px;padding:0;border-radius:6px;font:700 11px Rajdhani,sans-serif}
+.dyntog{font:700 11px Rajdhani,sans-serif;letter-spacing:.06em;padding:6px 9px;border-radius:8px;white-space:nowrap}
+.dyntog.on{background:#3ddc8426;border-color:#3ddc8466;color:#8ff0b8}
+.mcard.dy b{color:#8ff0b8}
 .pad.full{background:linear-gradient(160deg,#4a2320,#2b2226 70%);border-color:#8a2a22}
 .pad.full .id{color:#ff8a7a}
 .pad .tool{pointer-events:auto;position:absolute;top:4px;width:22px;height:22px;padding:0;border-radius:50%;font-size:11px;background:#000b;border:0;opacity:0}
@@ -171,14 +186,14 @@ code{background:var(--panel2);padding:1px 6px;border-radius:5px;color:var(--text
 .kofi-foot:hover{color:#e3ab85}
 
 /* Playback mode dialog */
-dialog{background:linear-gradient(180deg,#1f2229,#16181d);color:var(--text);border:1px solid var(--line2);border-radius:18px;padding:0;width:min(640px,calc(100vw - 32px));max-height:min(760px,calc(100vh - 40px));box-shadow:0 40px 80px -20px #000}
+dialog{background:linear-gradient(180deg,#1f2229,#16181d);color:var(--text);border:1px solid var(--line2);border-radius:18px;padding:0;width:min(760px,calc(100vw - 32px));max-height:min(760px,calc(100vh - 40px));box-shadow:0 40px 80px -20px #000}
 dialog::backdrop{background:#000a;backdrop-filter:blur(3px)}
 .dlg-head{display:flex;align-items:center;gap:12px;padding:18px 20px 12px;border-bottom:1px solid var(--line)}
 .dlg-head h2{margin:0;font-size:20px;flex:1}
 .dlg-head button{border-radius:50%;width:34px;height:34px;padding:0}
 .dlg-body{padding:16px 20px;overflow-y:auto;max-height:calc(min(760px,100vh - 40px) - 140px)}
-.modes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-@media(max-width:520px){.modes{grid-template-columns:1fr}}
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+@media(max-width:620px){.modes{grid-template-columns:1fr}}
 .mcard{background:#111317;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
 .mcard b{display:block;font:700 16px Rajdhani,sans-serif;letter-spacing:.06em;margin-bottom:2px}
 .mcard.os b{color:#ff8a7a} .mcard.no b{color:#8fe4ff}
@@ -241,7 +256,9 @@ dialog::backdrop{background:#000a;backdrop-filter:blur(3px)}
 
   <!-- 2. Device -->
   <section class="device">
+    <div class="engrow"><div class="engine" role="group" aria-label="Classic / MPCe"><button data-eng="classic" class="on">CLASSIC<small data-i18n="engClassic"></small></button><button data-eng="mpce">MPCe<small data-i18n="engMpce"></small></button></div></div>
     <div class="kits" id="kits"></div>
+    <p id="mpceNote" data-i18n-html="mpceNote"></p>
     <div class="lcd">
       <div class="lcd-top"><span style="color:#5fbf96;font:600 13px Rajdhani">KIT</span><input type="text" id="kitName" maxlength="50" aria-label="Kit"></div>
       <div class="lcd-info"><span id="lcdBank"></span><span id="lcdCount"></span><span class="sp"></span><button id="modeBtn" data-i18n="modeBtn"></button></div>
@@ -299,6 +316,7 @@ dialog::backdrop{background:#000a;backdrop-filter:blur(3px)}
     <div class="modes">
       <div class="mcard os"><b>ONE SHOT</b><p data-i18n="osDesc"></p><button data-all="oneshot" data-i18n="allOs"></button></div>
       <div class="mcard no"><b>NOTE ON</b><p data-i18n="noDesc"></p><button data-all="noteon" data-i18n="allNo"></button></div>
+      <div class="mcard dy"><b>GHOST · ACCENT</b><p data-i18n="dynDesc"></p><button id="allDyn" data-i18n="allDyn"></button></div>
     </div>
     <div id="modeList"></div>
   </div>
@@ -321,9 +339,9 @@ const I18N = {
     coverHint: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg><b>Glissez votre pochette ici</b><br><span class="small">ou cliquez · JPG / PNG<br>Sans image, une pochette est générée</span>',
     coverChange: "<b>Changer l'image</b>", coverClear: "Retirer l'image", coverTitle: "Cliquez ou glissez une image",
     expName: "Nom de l'expansion", defName: "Mon Expansion", expAuthor: "Auteur / marque", expAuthorPh: "Votre nom", expDesc: "Description (facultatif)",
-    bank: "Banque", modeBtn: "⚙ MODE DE LECTURE",
+    bank: "Banque", modeBtn: "⚙ RÉGLAGES DES PADS",
     help1: "Glissez des sons ou un dossier sur un pad", help2: "Glissez un pad sur un autre pour échanger",
-    help3: "Clic ou clavier pour écouter", help4: "⚙ ou clic droit : One Shot / Note On",
+    help3: "Clic ou clavier pour écouter", help4: "⚙ ou clic droit : One Shot / Note On, ghost · accent",
     libDrop: "<b>Déposez des sons ou un dossier</b><br><span class=\"small\">ou cliquez pour parcourir</span>",
     search: "Rechercher…", libFill: "Remplir les pads vides", libFillTitle: "Remplit les pads vides du kit avec les sons pas encore utilisés", libClear: "Vider la liste",
     libItem: "Glissez sur un pad · clic pour écouter", remove: "Retirer de la liste",
@@ -341,7 +359,11 @@ const I18N = {
     filled: "{0} pad(s) rempli(s)", noFree: "Aucun son libre à placer",
     preparing: "Préparation…", downloaded: "✔ {0}.zip téléchargé ({1} fichiers).", needSound: "Ajoutez au moins un son sur un pad avant d'exporter.",
     tileSub: "{0} · {1} kit(s) · {2} son(s)",
-    modeTitle: "Mode de lecture des sons",
+    modeTitle: "Réglages des pads",
+    dynDesc: "Le même son en 3 couches selon la force de frappe : frappe douce = ghost note (plus faible), normale, forte = accent. Fonctionne sur toutes les MPC.",
+    allDyn: "Tout le kit en ghost · accent", dynOn: "{0} pad(s) en ghost · accent", dynOff: "Ghost · accent retiré", dynTitle: "Écouter : ghost / normal / accent",
+    engClassic: "Toutes les MPC", engMpce: "MPC Live III",
+    mpceNote: "<b>Mode MPCe (pads 3D) en préparation</b> : 4 sons par pad (un par coin) et des effets par coin (roll, ghost, pitch). Pour l'instant, les exports restent en <b>Classic</b>, compatibles avec toutes les MPC.",
     osDesc: "Le son est joué en entier, même si vous relâchez le pad tout de suite. Idéal pour kicks, snares, claps, percussions.",
     noDesc: "Le son ne joue que tant que vous gardez le pad enfoncé et s'arrête au relâchement. Idéal pour 808 longues, nappes, voix, boucles.",
     allOs: "Tout le kit en One Shot", allNo: "Tout le kit en Note On",
@@ -357,9 +379,9 @@ const I18N = {
     coverHint: '<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg><b>Drop your cover art here</b><br><span class="small">or click · JPG / PNG<br>No image? One is generated</span>',
     coverChange: "<b>Change image</b>", coverClear: "Remove image", coverTitle: "Click or drop an image",
     expName: "Expansion name", defName: "My Expansion", expAuthor: "Author / brand", expAuthorPh: "Your name", expDesc: "Description (optional)",
-    bank: "Bank", modeBtn: "⚙ PLAYBACK MODE",
+    bank: "Bank", modeBtn: "⚙ PAD SETTINGS",
     help1: "Drop sounds or a folder onto a pad", help2: "Drag a pad onto another to swap",
-    help3: "Click or keyboard to play", help4: "⚙ or right-click: One Shot / Note On",
+    help3: "Click or keyboard to play", help4: "⚙ or right-click: One Shot / Note On, ghost · accent",
     libDrop: "<b>Drop sounds or a folder</b><br><span class=\"small\">or click to browse</span>",
     search: "Search…", libFill: "Fill empty pads", libFillTitle: "Fills the kit's empty pads with sounds not used yet", libClear: "Clear list",
     libItem: "Drag onto a pad · click to play", remove: "Remove from list",
@@ -377,7 +399,11 @@ const I18N = {
     filled: "{0} pad(s) filled", noFree: "No unused sound to place",
     preparing: "Preparing…", downloaded: "✔ {0}.zip downloaded ({1} files).", needSound: "Add at least one sound to a pad before exporting.",
     tileSub: "{0} · {1} kit(s) · {2} sound(s)",
-    modeTitle: "Sound playback mode",
+    modeTitle: "Pad settings",
+    dynDesc: "The same sound in 3 velocity layers: soft hit = ghost note (quieter), normal, hard hit = accent. Works on every MPC.",
+    allDyn: "Whole kit to ghost · accent", dynOn: "{0} pad(s) set to ghost · accent", dynOff: "Ghost · accent removed", dynTitle: "Play: ghost / normal / accent",
+    engClassic: "Every MPC", engMpce: "MPC Live III",
+    mpceNote: "<b>MPCe mode (3D pads) coming soon</b>: 4 sounds per pad (one per corner) and per-corner effects (roll, ghost, pitch). For now, exports stay in <b>Classic</b> mode, compatible with every MPC.",
     osDesc: "The whole sound plays, even if you release the pad right away. Best for kicks, snares, claps, percussion.",
     noDesc: "The sound only plays while you hold the pad and stops when you release it. Best for long 808s, pads, vocals, loops.",
     allOs: "Whole kit to One Shot", allNo: "Whole kit to Note On",
@@ -426,7 +452,8 @@ const KEY_LABEL = c => { const azerty = { KeyZ: "W", KeyQ: "A", KeyW: "Z", KeyA:
 const MODE_LABEL = { oneshot: "ONE SHOT", noteon: "NOTE ON" };
 
 /* ---------- État ---------- */
-const newKit = name => ({ name, pads: new Array(128).fill(null), modes: new Array(128).fill("oneshot") });
+const newKit = name => ({ name, pads: new Array(128).fill(null), modes: new Array(128).fill("oneshot"), dyn: new Array(128).fill(false) });
+const DYN_GAIN = { g: .3, n: .7, a: 1 };
 const state = { kits: [newKit("Kit 1")], cur: 0, bank: 0, image: null, imageUrl: null, target: 0, lib: [] };
 const $ = id => document.getElementById(id);
 const kit = () => state.kits[state.cur];
@@ -538,20 +565,20 @@ async function addToPads(files, start) { placeOnPads(await loadMany(files), star
 async function addToLib(files) { const s = await loadMany(files); if (s.length) toast(t("added", s.length)); render(); }
 
 /* Lecture : retourne une fonction stop() (utilisée en mode Note On) */
-function play(sample, el) {
+function play(sample, el, gain = 1) {
   if (!sample) return () => {};
   if (el) { el.classList.remove("hit"); void el.offsetWidth; el.classList.add("hit"); setTimeout(() => el.classList.remove("hit"), 140); }
   if (sample.buffer) {
     const c = ctx(); c.resume();
     const src = c.createBufferSource(), g = c.createGain();
-    src.buffer = sample.buffer; src.connect(g); g.connect(c.destination); src.start();
+    src.buffer = sample.buffer; g.gain.value = gain; src.connect(g); g.connect(c.destination); src.start();
     return () => { try { g.gain.setTargetAtTime(0, c.currentTime, 0.015); src.stop(c.currentTime + 0.08); } catch (e) {} };
   }
-  const a = new Audio(sample.url); a.play().catch(() => {});
+  const a = new Audio(sample.url); a.volume = Math.min(1, gain); a.play().catch(() => {});
   return () => a.pause();
 }
-function playPad(i, el) {
-  const stop = play(kit().pads[i], el);
+function playPad(i, el, gain = 1) {
+  const stop = play(kit().pads[i], el, gain);
   return kit().modes[i] === "noteon" ? stop : () => {};
 }
 function drawWave(canvas, peaks, color) {
@@ -610,8 +637,8 @@ function renderCover() {
 
 /* ---------- Rendu ---------- */
 function swapPads(a, b) {
-  const P = kit().pads, M = kit().modes;
-  [P[a], P[b]] = [P[b], P[a]]; [M[a], M[b]] = [M[b], M[a]];
+  const P = kit().pads, M = kit().modes, D = kit().dyn;
+  [P[a], P[b]] = [P[b], P[a]]; [M[a], M[b]] = [M[b], M[a]]; [D[a], D[b]] = [D[b], D[a]];
 }
 function render() {
   const kits = $("kits"); kits.innerHTML = "";
@@ -651,14 +678,14 @@ function render() {
     el.innerHTML = `<span class="id">${padLabel(i)}</span><span class="key">${KEY_LABEL(KEYS[local])}</span>`;
     if (p) {
       const cv = document.createElement("canvas"); el.appendChild(cv);
-      el.insertAdjacentHTML("beforeend", `<span class="mode ${mode}">${MODE_LABEL[mode]}</span>`);
+      el.insertAdjacentHTML("beforeend", `<span class="mode ${mode}">${MODE_LABEL[mode]}</span>` + (kit().dyn[i] ? '<span class="dyn">G·N·A</span>' : ""));
       const nm = document.createElement("div"); nm.className = "nm"; nm.textContent = p.name; el.appendChild(nm);
       const gear = document.createElement("button"); gear.className = "tool gear"; gear.textContent = "⚙"; gear.title = t("padMode");
       gear.onpointerdown = e => e.stopPropagation();
       gear.onclick = e => { e.stopPropagation(); openModes(i); };
       const x = document.createElement("button"); x.className = "tool x"; x.textContent = "✕"; x.title = t("clearPad");
       x.onpointerdown = e => e.stopPropagation();
-      x.onclick = e => { e.stopPropagation(); kit().pads[i] = null; kit().modes[i] = "oneshot"; render(); };
+      x.onclick = e => { e.stopPropagation(); kit().pads[i] = null; kit().modes[i] = "oneshot"; kit().dyn[i] = false; render(); };
       el.append(gear, x);
       el.draggable = true;
       el.ondragstart = e => { stopHeld(); e.dataTransfer.setData("text/x-pad", String(i)); e.dataTransfer.effectAllowed = "move"; el.classList.add("dragging"); };
@@ -741,7 +768,15 @@ function renderModes() {
       b.onclick = () => { kit().modes[i] = m; renderModes(); render(); };
       seg.appendChild(b);
     }
-    row.append(play_, nm, seg);
+    const dt = document.createElement("button"); dt.className = "dyntog" + (kit().dyn[i] ? " on" : ""); dt.textContent = "GHOST · ACCENT";
+    dt.onclick = () => { kit().dyn[i] = !kit().dyn[i]; renderModes(); render(); };
+    row.append(play_, nm, dt);
+    if (kit().dyn[i]) {
+      const db = document.createElement("span"); db.className = "dynbtns"; db.title = t("dynTitle");
+      for (const k of ["g", "n", "a"]) { const b = document.createElement("button"); b.textContent = k.toUpperCase(); b.onclick = () => play(kit().pads[i], null, DYN_GAIN[k]); db.appendChild(b); }
+      row.append(db);
+    }
+    row.append(seg);
     row.insertBefore(row.querySelector(".pid"), play_);
     list.appendChild(row);
   }
@@ -751,21 +786,31 @@ document.querySelectorAll("[data-all]").forEach(b => b.onclick = () => {
   kit().pads.forEach((p, i) => { if (p) { kit().modes[i] = m; n++; } });
   flashPad = null; renderModes(); render(); if (n) toast(t("modeSet", n, MODE_LABEL[m]));
 });
+$("allDyn").onclick = () => {
+  const used = kit().pads.map((p, i) => p ? i : -1).filter(i => i >= 0);
+  const turnOn = used.some(i => !kit().dyn[i]);
+  used.forEach(i => kit().dyn[i] = turnOn);
+  flashPad = null; renderModes(); render(); if (used.length) toast(turnOn ? t("dynOn", used.length) : t("dynOff"));
+};
 $("modeBtn").onclick = () => openModes();
+document.querySelectorAll("[data-eng]").forEach(b => b.onclick = () => {
+  document.querySelectorAll("[data-eng]").forEach(x => x.classList.toggle("on", x === b));
+  document.querySelector(".device").classList.toggle("mpce-on", b.dataset.eng === "mpce");
+});
 $("modeClose").onclick = $("modeDone").onclick = () => $("modeDlg").close();
 $("modeDlg").addEventListener("click", e => { if (e.target === $("modeDlg")) $("modeDlg").close(); });
 
 /* ---------- Génération XPM ---------- */
-function layerXml(n, name, frames) {
-  return `<Layer number="${n}"><Active>True</Active><Volume>1.000000</Volume><Pan>0.500000</Pan><Pitch>0.000000</Pitch>` +
-    `<TuneCoarse>0</TuneCoarse><TuneFine>0</TuneFine><VelStart>0</VelStart><VelEnd>127</VelEnd>` +
+function layerXml(n, name, frames, vs = 0, ve = 127, vol = 1) {
+  return `<Layer number="${n}"><Active>True</Active><Volume>${vol.toFixed(6)}</Volume><Pan>0.500000</Pan><Pitch>0.000000</Pitch>` +
+    `<TuneCoarse>0</TuneCoarse><TuneFine>0</TuneFine><VelStart>${vs}</VelStart><VelEnd>${ve}</VelEnd>` +
     `<SampleStart>0</SampleStart><SampleEnd>${frames}</SampleEnd><Loop>False</Loop><LoopStart>0</LoopStart><LoopEnd>0</LoopEnd>` +
     `<LoopCrossfadeLength>0</LoopCrossfadeLength><LoopTune>0</LoopTune><Mute>False</Mute><RootNote>0</RootNote><KeyTrack>False</KeyTrack>` +
     `<SampleName>${xml(name)}</SampleName><SampleFile></SampleFile><SliceIndex>129</SliceIndex><Direction>0</Direction><Offset>0</Offset>` +
     `<SliceStart>0</SliceStart><SliceEnd>${frames}</SliceEnd><SliceLoopStart>0</SliceLoopStart><SliceLoop>0</SliceLoop></Layer>\n`;
 }
 const SENDS = "<Send1>0.000000</Send1><Send2>0.000000</Send2><Send3>0.000000</Send3><Send4>0.000000</Send4>";
-function instrumentXml(n, name, frames, oneShot) {
+function instrumentXml(n, name, frames, oneShot, dyn) {
   return `<Instrument number="${n}">\n<CueBusEnable>False</CueBusEnable>` +
     `<AudioRoute><AudioRoute>0</AudioRoute><AudioRouteSubIndex>0</AudioRouteSubIndex><InsertsEnabled>True</InsertsEnabled></AudioRoute>` +
     SENDS + `<Volume>0.707946</Volume><Mute>False</Mute><Solo>False</Solo><Pan>0.500000</Pan><AutomationFilter>1</AutomationFilter>` +
@@ -783,7 +828,9 @@ function instrumentXml(n, name, frames, oneShot) {
     `<VolumeAttack>0.000000</VolumeAttack><VolumeDecay>0.047244</VolumeDecay><VolumeSustain>1.000000</VolumeSustain><VolumeRelease>0.000000</VolumeRelease>` +
     `<VelocityToPitch>0.000000</VelocityToPitch><VelocityToVolumeAttack>0.000000</VelocityToVolumeAttack>` +
     `<VelocitySensitivity>1.000000</VelocitySensitivity><VelocityToPan>0.000000</VelocityToPan>\n<Layers>\n` +
-    layerXml(1, name, frames) + layerXml(2, "", 0) + layerXml(3, "", 0) + layerXml(4, "", 0) +
+    (dyn && name
+      ? layerXml(1, name, frames, 0, 50, .45) + layerXml(2, name, frames, 51, 110, .8) + layerXml(3, name, frames, 111, 127, 1) + layerXml(4, "", 0)
+      : layerXml(1, name, frames) + layerXml(2, "", 0) + layerXml(3, "", 0) + layerXml(4, "", 0)) +
     `</Layers>\n</Instrument>\n`;
 }
 function buildXpm(kitName, k, nameOf) {
@@ -794,7 +841,7 @@ function buildXpm(kitName, k, nameOf) {
     SENDS + `<Volume>0.707946</Volume><Mute>False</Mute><Solo>False</Solo><Pan>0.500000</Pan><AutomationFilter>1</AutomationFilter>` +
     `<Pitch>0.000000</Pitch><TuneCoarse>0</TuneCoarse><TuneFine>0</TuneFine><Mono>False</Mono><Program_Polyphony>128</Program_Polyphony>` +
     `<PortamentoTime>0.000000</PortamentoTime><PortamentoLegato>False</PortamentoLegato><PortamentoQuantized>False</PortamentoQuantized>\n<Instruments>\n`;
-  for (let i = 0; i < 128; i++) { const p = k.pads[i]; s += instrumentXml(i + 1, p ? nameOf.get(p) : "", p ? p.frames : 0, k.modes[i] !== "noteon"); }
+  for (let i = 0; i < 128; i++) { const p = k.pads[i]; s += instrumentXml(i + 1, p ? nameOf.get(p) : "", p ? p.frames : 0, k.modes[i] !== "noteon", !!(k.dyn && k.dyn[i])); }
   s += `</Instruments>\n<PadNoteMap>\n`;
   for (let i = 0; i < 128; i++) s += `<PadNote number="${i + 1}"><Note>${PAD_NOTES[i]}</Note></PadNote>\n`;
   s += `</PadNoteMap>\n<PadGroupMap>\n`;
