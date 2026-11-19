@@ -2,6 +2,17 @@
 <html lang="fr" data-root="./">
 <head>
 <meta charset="utf-8">
+<script>
+/* Visiteurs non francophones -> version anglaise (sauf choix FR enregistré, ?lang=fr, ou robots d'indexation) */
+(function () {
+  try {
+    if (/[?&]lang=fr\b/.test(location.search) || /bot|crawl|spider|slurp|lighthouse/i.test(navigator.userAgent)) return;
+    var saved = null; try { saved = localStorage.getItem("mkm-lang"); } catch (e) {}
+    var fr = saved ? saved === "fr" : /^fr\b/i.test(navigator.language || "");
+    if (!fr) location.replace("en/" + location.hash);
+  } catch (e) {}
+})();
+</script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Expansion Lab – Créateur gratuit d'expansions &amp; kits MPC (Windows, en ligne)</title>
 <meta name="description" content="Un simple glisser-déposer suffit : application gratuite et open source pour créer des kits de batterie MPC (.xpm) et des expansions MPC avec image, et importer vos samples sur MPC. En ligne ou à télécharger pour Windows. MPC One, Live, X, Key.">
