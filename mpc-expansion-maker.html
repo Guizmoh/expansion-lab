@@ -120,6 +120,9 @@ button:hover{border-color:#5a6170;background:#2d323b}
 .pad .mode{position:absolute;right:6px;bottom:22px;font:700 9px Rajdhani,sans-serif;letter-spacing:.08em;padding:1px 5px;border-radius:4px;background:#0008;color:#ffb3a8}
 .pad .mode.noteon{background:#13c3ff33;color:#8fe4ff}
 .pad .dyn{position:absolute;left:6px;bottom:22px;font:700 9px Rajdhani,sans-serif;letter-spacing:.08em;padding:1px 5px;border-radius:4px;background:#3ddc8426;color:#8ff0b8}
+.allq{display:none;justify-content:center;align-items:center;gap:8px;margin:-4px 0 12px;font-size:13px;color:#c9ced8;cursor:pointer;user-select:none}
+.allq input{width:16px;height:16px;accent-color:var(--red);cursor:pointer;margin:0}
+.mpce-on .allq{display:flex}
 .engrow{display:flex;justify-content:center;margin-bottom:12px}
 .engine{display:inline-flex;border:1px solid #3a404b;border-radius:10px;overflow:hidden;margin-right:6px}
 .engine button{border:0;border-radius:0;background:transparent;color:var(--muted);padding:6px 12px;font:700 13px Rajdhani,sans-serif;letter-spacing:.08em}
@@ -128,7 +131,7 @@ button:hover{border-color:#5a6170;background:#2d323b}
 #mpceNote{display:none;margin:0 0 12px;padding:10px 14px;border-radius:10px;background:#ffffff08;border:1px dashed #5d6472;color:#c9ced8;font-size:13px}
 #mpceNote b{color:#fff}
 .mpce-on #mpceNote{display:block}
-.mpce-on .pad::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(#ffffff2e,#ffffff2e) center/1px 100% no-repeat,linear-gradient(#ffffff2e,#ffffff2e) center/100% 1px no-repeat}
+.mpce-on .pad.quad::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(#ffffff2e,#ffffff2e) center/1px 100% no-repeat,linear-gradient(#ffffff2e,#ffffff2e) center/100% 1px no-repeat}
 .dynbtns{display:inline-flex;gap:4px}
 .dynbtns button{width:26px;height:26px;padding:0;border-radius:6px;font:700 11px Rajdhani,sans-serif}
 .dyntog{font:700 11px Rajdhani,sans-serif;letter-spacing:.06em;padding:6px 9px;border-radius:8px;white-space:nowrap}
@@ -138,6 +141,38 @@ button:hover{border-color:#5a6170;background:#2d323b}
 .pad.full .id{color:#ff8a7a}
 .pad .tool{pointer-events:auto;position:absolute;top:4px;width:22px;height:22px;padding:0;border-radius:50%;font-size:11px;background:#000b;border:0;opacity:0}
 .pad .x{right:4px} .pad .gear{right:30px}
+.pad.quad{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+.pad.quad .q{position:relative;min-width:0;min-height:0;overflow:hidden;transition:background .1s}
+.pad.quad .q canvas{position:absolute;left:5px;right:5px;top:18%;width:calc(100% - 10px);height:42%}
+.pad.quad .qn{position:absolute;left:5px;right:5px;bottom:3px;font-size:9px;font-weight:600;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#dfe3ea}
+.pad.quad .qe{position:absolute;inset:0;display:grid;place-items:center;color:#4d5360;font-size:15px;font-weight:300}
+.pad.quad .q.f.q0{background:#ff6b5524} .pad.quad .q.f.q1{background:#13c3ff1f} .pad.quad .q.f.q2{background:#3ddc841c} .pad.quad .q.f.q3{background:#ffc04a1c}
+.pad.quad .q.over{background:#ff6b3d55!important}
+.pad.quad .q.hit{background:#ff5a45aa!important}
+.pad.quad .id{top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;background:#111318e6;padding:1px 6px;border-radius:5px;font-size:11px}
+.pad.quad .qx{pointer-events:auto;position:absolute;top:3px;right:3px;width:16px;height:16px;padding:0;border:0;border-radius:50%;font-size:8px;background:#000b;opacity:0}
+.pad.quad:hover .qx{opacity:1} .pad.quad .qx:hover{background:var(--red)}
+#fxPanel{display:none;max-width:520px;margin:12px auto 0;padding:12px 14px;border-radius:12px;background:#0b0c0f;border:1px solid #2a2e36}
+.mpce-on #fxPanel{display:block}
+.fxhead{display:flex;gap:10px;align-items:baseline;margin-bottom:10px;min-width:0}
+.fxhead b{font:700 15px Rajdhani,sans-serif;letter-spacing:.08em;flex:none}
+.fxhead span{color:var(--muted);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fxs{display:flex;flex-wrap:wrap;gap:6px}
+.fxs button{padding:6px 10px;border-radius:8px;font:700 12px Rajdhani,sans-serif;letter-spacing:.06em}
+.fxs button.on{background:#eef0f4;color:#111;border-color:#eef0f4}
+.fxrow{display:flex;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap}
+.fxrow>span{width:84px;color:var(--muted);font-size:12px}
+.fxrow input[type=range]{flex:1;min-width:120px;accent-color:var(--red)}
+.fxhint{margin:10px 0 0;color:var(--muted);font-size:12px}
+.pad.fxpad .fxaxis{position:absolute;inset:0;opacity:.3}
+.pad.quad.xyb::after{background:radial-gradient(circle at center,#ffffff22,transparent 60%)!important}
+.fxaxis.xy{background:linear-gradient(45deg,transparent,#ff6b55)} .fxaxis.x{background:linear-gradient(90deg,transparent,#ff6b55)} .fxaxis.y{background:linear-gradient(0deg,transparent,#ff6b55)}
+.pad .fxb{position:absolute;right:6px;top:6px;font:700 9px Rajdhani,sans-serif;letter-spacing:.08em;padding:1px 5px;border-radius:4px;background:#000a;color:#ffd3c9}
+.pad .fxdot{position:absolute;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:#fff;box-shadow:0 0 12px #fff;animation:fxd .45s forwards}
+@keyframes fxd{to{opacity:0;transform:scale(2.2)}}
+.mpce-on .pad.sel{outline:2px solid #eef0f4;outline-offset:2px}
+.mpce-on .pad.fxpad::after{display:none}
+.pad.quad.full{background:linear-gradient(160deg,#2c2427,#211f25 70%)}
 .pad.full:hover .tool{opacity:1}
 .pad.full:hover .key{opacity:0}
 .pad .x:hover{background:var(--red)} .pad .gear:hover{background:var(--blue);color:#06222c}
@@ -257,6 +292,7 @@ dialog::backdrop{background:#000a;backdrop-filter:blur(3px)}
   <!-- 2. Device -->
   <section class="device">
     <div class="engrow"><div class="engine" role="group" aria-label="Classic / MPCe"><button data-eng="classic" class="on">CLASSIC<small data-i18n="engClassic"></small></button><button data-eng="mpce">MPCe<small data-i18n="engMpce"></small></button></div></div>
+    <label class="allq"><input type="checkbox" id="allQuad" checked><span data-i18n="allQuad"></span></label>
     <div class="kits" id="kits"></div>
     <p id="mpceNote" data-i18n-html="mpceNote"></p>
     <div class="lcd">
@@ -264,6 +300,7 @@ dialog::backdrop{background:#000a;backdrop-filter:blur(3px)}
       <div class="lcd-info"><span id="lcdBank"></span><span id="lcdCount"></span><span class="sp"></span><button id="modeBtn" data-i18n="modeBtn"></button></div>
     </div>
     <div id="pads"></div>
+    <div id="fxPanel"></div>
     <div class="banks" id="banks"></div>
     <div class="help">
       <span data-i18n="help1"></span>
@@ -352,7 +389,15 @@ const I18N = {
     howSteps: "<li>Décompressez le .zip.</li><li><b>MPC autonome</b> (One, Live, X, Key…) : copiez le dossier dans un dossier <code>Expansions</code> à la racine de la carte SD / clé USB / disque.</li><li><b>Logiciel MPC</b> : copiez le dossier dans le dossier d'expansions du logiciel, puis relancez-le.</li><li>Ouvrez <b>Browser › Expansions</b> : votre pochette apparaît dans la liste.</li>",
     overlay: "Déposez vos sons ou votre pochette",
     newKit: "+ Kit", delKit: "Supprimer ce kit", confirmDel: "Supprimer le kit « {0} » ?", noName: "Sans nom", kit: "Kit",
-    clearPad: "Vider ce pad", padMode: "Mode de lecture",
+    allQuad: "Tous les pads en 4 sons (un par coin)", fx_none: "AUCUN", m1: "1 SON", m4: "4 SONS", mxy: "4 SONS XY", fxBlend: "Les 4 sons se mélangent en douceur selon l'endroit où vous tapez : au centre, on entend un peu des 4.", fxSounds: "Sons", fxEffect: "Effet", fxSingle: "Un seul son sur tout le pad, avec ou sans effet.",
+    fxFilterHint: "Gauche → droite : fréquence du filtre. Bas → haut : résonance. Cliquez à différents endroits du pad pour l'entendre.", fx_filter: "FILTRE", fx_reverb: "REVERB", fx_delay: "DELAY", fx_crush: "BITCRUSHER",
+    fxAxis: "Axe", fxX: "X ↔ gauche → droite", fxY: "Y ↕ bas → haut", fxType: "Type", fxRes: "Résonance",
+    ft_lp: "PASSE-BAS", ft_hp: "PASSE-HAUT", ft_bp: "PASSE-BANDE",
+    fxPick: "Cliquez sur un pad pour choisir : 1 son (avec ou sans effet) ou 4 sons (un par coin).",
+    fxCorners: "Un son différent sur chaque coin du pad.",
+    fxHint: "Cliquez à différents endroits du pad : plus vous allez vers la droite (X) ou vers le haut (Y), plus l'effet est fort.",
+    fxEmpty: "Ajoutez d'abord un son sur ce pad.",
+    clearPad: "Vider ce pad", clearCorner: "Vider ce coin", cornersPlaced: "{0} son(s) placé(s) sur les coins", padMode: "Mode de lecture",
     loading: "Chargement {0}/{1}…", unreadable: "Illisible : {0}", noAudio: "Aucun fichier audio reconnu.",
     placed: "{0} son(s) placé(s) à partir de {1}", added: "{0} son(s) ajouté(s) à la bibliothèque",
     coverAdded: "Pochette ajoutée", imgBad: "Image illisible.", dropImg: "Déposez une image (JPG, PNG…)",
@@ -363,7 +408,7 @@ const I18N = {
     dynDesc: "Le même son en 3 couches selon la force de frappe : frappe douce = ghost note (plus faible), normale, forte = accent. Fonctionne sur toutes les MPC.",
     allDyn: "Tout le kit en ghost · accent", dynOn: "{0} pad(s) en ghost · accent", dynOff: "Ghost · accent retiré", dynTitle: "Écouter : ghost / normal / accent",
     engClassic: "Toutes les MPC", engMpce: "MPC Live III",
-    mpceNote: "<b>Mode MPCe (pads 3D) en préparation</b> : 4 sons par pad (un par coin) et des effets par coin (roll, ghost, pitch). Pour l'instant, les exports restent en <b>Classic</b>, compatibles avec toutes les MPC.",
+    mpceNote: "<b>Mode MPCe (pads 3D)</b> : cliquez sur un pad pour choisir : 4 sons (un par coin) ou 1 son avec un effet piloté par X ou Y. Tout s'écoute ici. À l'export, vous recevez une <b>piste MPCe (.xtd)</b> avec ses sons (à ouvrir sur MPC Live III, logiciel 3.6 ou plus), en plus du kit Classic (.xpm). <i>Version d'essai : merci de signaler tout souci.</i>",
     osDesc: "Le son est joué en entier, même si vous relâchez le pad tout de suite. Idéal pour kicks, snares, claps, percussions.",
     noDesc: "Le son ne joue que tant que vous gardez le pad enfoncé et s'arrête au relâchement. Idéal pour 808 longues, nappes, voix, boucles.",
     allOs: "Tout le kit en One Shot", allNo: "Tout le kit en Note On",
@@ -392,7 +437,15 @@ const I18N = {
     howSteps: "<li>Unzip the .zip file.</li><li><b>Standalone MPC</b> (One, Live, X, Key…): copy the folder into an <code>Expansions</code> folder at the root of your SD card / USB drive / disk.</li><li><b>MPC Software</b>: copy the folder into the software's expansions folder, then restart it.</li><li>Open <b>Browser › Expansions</b>: your cover art shows in the list.</li>",
     overlay: "Drop your sounds or cover art",
     newKit: "+ Kit", delKit: "Delete this kit", confirmDel: "Delete kit “{0}”?", noName: "Untitled", kit: "Kit",
-    clearPad: "Clear this pad", padMode: "Playback mode",
+    allQuad: "All pads: 4 sounds (one per corner)", fx_none: "NONE", m1: "1 SOUND", m4: "4 SOUNDS", mxy: "4 SOUNDS XY", fxBlend: "The 4 sounds blend smoothly depending on where you hit: in the middle, you hear a bit of all 4.", fxSounds: "Sounds", fxEffect: "Effect", fxSingle: "One sound on the whole pad, with or without an effect.",
+    fxFilterHint: "Left → right: filter frequency. Bottom → top: resonance. Click different spots on the pad to hear it.", fx_filter: "FILTER", fx_reverb: "REVERB", fx_delay: "DELAY", fx_crush: "BITCRUSHER",
+    fxAxis: "Axis", fxX: "X ↔ left → right", fxY: "Y ↕ bottom → top", fxType: "Type", fxRes: "Resonance",
+    ft_lp: "LOW-PASS", ft_hp: "HIGH-PASS", ft_bp: "BAND-PASS",
+    fxPick: "Click a pad to choose: 1 sound (with or without an effect) or 4 sounds (one per corner).",
+    fxCorners: "A different sound on each corner of the pad.",
+    fxHint: "Click different spots on the pad: the further right (X) or up (Y), the stronger the effect.",
+    fxEmpty: "Add a sound to this pad first.",
+    clearPad: "Clear this pad", clearCorner: "Clear this corner", cornersPlaced: "{0} sound(s) placed on the corners", padMode: "Playback mode",
     loading: "Loading {0}/{1}…", unreadable: "Unreadable: {0}", noAudio: "No audio file recognised.",
     placed: "{0} sound(s) placed from {1}", added: "{0} sound(s) added to the library",
     coverAdded: "Cover art added", imgBad: "Unreadable image.", dropImg: "Drop an image (JPG, PNG…)",
@@ -403,7 +456,7 @@ const I18N = {
     dynDesc: "The same sound in 3 velocity layers: soft hit = ghost note (quieter), normal, hard hit = accent. Works on every MPC.",
     allDyn: "Whole kit to ghost · accent", dynOn: "{0} pad(s) set to ghost · accent", dynOff: "Ghost · accent removed", dynTitle: "Play: ghost / normal / accent",
     engClassic: "Every MPC", engMpce: "MPC Live III",
-    mpceNote: "<b>MPCe mode (3D pads) coming soon</b>: 4 sounds per pad (one per corner) and per-corner effects (roll, ghost, pitch). For now, exports stay in <b>Classic</b> mode, compatible with every MPC.",
+    mpceNote: "<b>MPCe mode (3D pads)</b>: click a pad to choose: 4 sounds (one per corner) or 1 sound with an effect driven by X or Y. You can hear everything here. When you export, you get an <b>MPCe track (.xtd)</b> with its sounds (open it on MPC Live III, software 3.6 or later), plus the Classic kit (.xpm). <i>Beta: please report any issue.</i>",
     osDesc: "The whole sound plays, even if you release the pad right away. Best for kicks, snares, claps, percussion.",
     noDesc: "The sound only plays while you hold the pad and stops when you release it. Best for long 808s, pads, vocals, loops.",
     allOs: "Whole kit to One Shot", allNo: "Whole kit to Note On",
@@ -452,9 +505,75 @@ const KEY_LABEL = c => { const azerty = { KeyZ: "W", KeyQ: "A", KeyW: "Z", KeyA:
 const MODE_LABEL = { oneshot: "ONE SHOT", noteon: "NOTE ON" };
 
 /* ---------- État ---------- */
-const newKit = name => ({ name, pads: new Array(128).fill(null), modes: new Array(128).fill("oneshot"), dyn: new Array(128).fill(false) });
+const newKit = name => ({ name, pads: new Array(128).fill(null), modes: new Array(128).fill("oneshot"), dyn: new Array(128).fill(false), corners: Array.from({ length: 128 }, () => [null, null, null]), fx: new Array(128).fill(null), xy: new Array(128).fill(false), quad: new Array(128).fill(!document.getElementById("allQuad") || document.getElementById("allQuad").checked) });
+const FX = ["none", "filter", "reverb", "delay", "crush"];
+function fxAmt(el, e, fx) { const b = el.getBoundingClientRect(); const v = fx.axis === "x" ? (e.clientX - b.left) / b.width : 1 - (e.clientY - b.top) / b.height; return Math.min(1, Math.max(0, v)); }
+let IR = null;
+function impulse(c) {
+  if (IR && IR.sampleRate === c.sampleRate) return IR;
+  const n = c.sampleRate * 2.5, b = c.createBuffer(2, n, c.sampleRate);
+  for (let ch = 0; ch < 2; ch++) { const d = b.getChannelData(ch); for (let i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, 3); }
+  return IR = b;
+}
+function crushBuf(c, buf, amt) {
+  const step = Math.pow(2, Math.round(16 - amt * 13) - 1), hold = 1 + Math.round(amt * 24);
+  const out = c.createBuffer(buf.numberOfChannels, buf.length, buf.sampleRate);
+  for (let ch = 0; ch < buf.numberOfChannels; ch++) { const a = buf.getChannelData(ch), d = out.getChannelData(ch); let v = 0; for (let i = 0; i < a.length; i++) { if (i % hold === 0) v = Math.round(a[i] * step) / step; d[i] = v; } }
+  return out;
+}
+function fxInput(c, fx, amt, out) {
+  if (fx.type === "filter") {
+    const f = c.createBiquadFilter(); f.type = { lp: "lowpass", hp: "highpass", bp: "bandpass" }[fx.ftype];
+    f.frequency.value = fx.ftype === "hp" ? 20 * Math.pow(2, amt * 9.5) : 60 * Math.pow(2, amt * 8.4); f.Q.value = .7 + fx.res * 18;
+    f.connect(out); return f;
+  }
+  if (fx.type === "reverb" || fx.type === "delay") {
+    const inp = c.createGain(), wet = c.createGain(); inp.connect(out); wet.gain.value = amt * (fx.type === "reverb" ? 1.2 : .8); wet.connect(out);
+    if (fx.type === "reverb") { const cv = c.createConvolver(); cv.buffer = impulse(c); inp.connect(cv); cv.connect(wet); }
+    else { const d = c.createDelay(2), fb = c.createGain(); d.delayTime.value = .3; fb.gain.value = .25 + amt * .4; inp.connect(d); d.connect(fb); fb.connect(d); d.connect(wet); }
+    return inp;
+  }
+  return out;
+}
+function markSel(el) { document.querySelectorAll(".pad.sel").forEach(x => x.classList.remove("sel")); if (el) el.classList.add("sel"); }
+function fxDot(el, e) { const b = el.getBoundingClientRect(), d = document.createElement("span"); d.className = "fxdot"; d.style.left = (e.clientX - b.left) + "px"; d.style.top = (e.clientY - b.top) + "px"; el.appendChild(d); setTimeout(() => d.remove(), 500); }
+function renderFx() {
+  const P = $("fxPanel"), i = state.sel;
+  if (i == null) { P.innerHTML = `<p class="fxhint" style="margin:0">${t("fxPick")}</p>`; return; }
+  const quad = kit().quad[i], fx = kit().fx[i], cur = fx ? fx.type : "none", smp = kit().pads[i];
+  const seg = (attr, keys, on, lab) => `<div class="fxs">` + keys.map(k => `<button data-${attr}="${k}" class="${k === on ? "on" : ""}">${lab(k)}</button>`).join("") + "</div>";
+  let h = `<div class="fxhead"><b>PAD ${padLabel(i)}</b><span>${smp && !quad ? xml(smp.name) : ""}</span></div>` +
+    `<div class="fxrow"><span>${t("fxSounds")}</span>${seg("m", ["1", "4", "xy"], quad ? (kit().xy[i] ? "xy" : "4") : "1", k => t("m" + k))}</div>`;
+  if (quad) h += `<p class="fxhint">${t(kit().xy[i] ? "fxBlend" : "fxCorners")}</p>`;
+  else {
+    h += `<div class="fxrow"><span>${t("fxEffect")}</span>${seg("fx", FX, cur, k => t("fx_" + k))}</div>`;
+    if (fx && fx.type === "filter") h += `<div class="fxrow"><span>${t("fxType")}</span>${seg("ft", ["lp", "hp", "bp"], fx.ftype, k => t("ft_" + k))}</div><p class="fxhint">${t("fxFilterHint")}</p>`;
+    else if (fx) h += `<div class="fxrow"><span>${t("fxAxis")}</span>${seg("axis", ["x", "y"], fx.axis, k => t("fx" + k.toUpperCase()))}</div><p class="fxhint">${smp ? t("fxHint") : t("fxEmpty")}</p>`;
+    else h += `<p class="fxhint">${t("fxSingle")}</p>`;
+  }
+  P.innerHTML = h;
+  P.querySelectorAll("[data-m]").forEach(b => b.onclick = () => { kit().quad[i] = b.dataset.m !== "1"; kit().xy[i] = b.dataset.m === "xy"; render(); });
+  P.querySelectorAll("[data-fx]").forEach(b => b.onclick = () => { const k = b.dataset.fx; kit().fx[i] = k === "none" ? null : { type: k, axis: fx ? fx.axis : "x", ftype: (fx && fx.ftype) || "lp", res: 0 }; render(); });
+  P.querySelectorAll("[data-axis]").forEach(b => b.onclick = () => { fx.axis = b.dataset.axis; render(); });
+  P.querySelectorAll("[data-ft]").forEach(b => b.onclick = () => { fx.ftype = b.dataset.ft; render(); });
+}
+function fxFor(el, e, fx) {   // filtre : X = fréquence, Y = résonance
+  if (fx.type !== "filter") return [fx, fxAmt(el, e, fx)];
+  const b = el.getBoundingClientRect(), x = (e.clientX - b.left) / b.width, y = 1 - (e.clientY - b.top) / b.height;
+  return [{ ...fx, res: Math.min(1, Math.max(0, y)) * .5 }, Math.min(1, Math.max(0, x))];
+}
+const QCOL = ["#ff6b55", "#5fd4ff", "#6fe7a3", "#ffc04a"];
+const getC = (i, q) => q ? kit().corners[i][q - 1] : kit().pads[i];
+const setC = (i, q, v) => { if (q) kit().corners[i][q - 1] = v; else kit().pads[i] = v; };
+function cornerAt(el, e) { const b = el.getBoundingClientRect(); return (e.clientY - b.top > b.height / 2 ? 2 : 0) + (e.clientX - b.left > b.width / 2 ? 1 : 0); }
+function placeOnCorners(samples, i, q) {
+  let n = 0;
+  for (const smp of samples) { if (i > 127) break; setC(i, q, smp); kit().quad[i] = true; n++; if (++q > 3) { q = 0; i++; } }
+  if (n) toast(t("cornersPlaced", n));
+  render();
+}
 const DYN_GAIN = { g: .3, n: .7, a: 1 };
-const state = { kits: [newKit("Kit 1")], cur: 0, bank: 0, image: null, imageUrl: null, target: 0, lib: [] };
+const state = { kits: [newKit("Kit 1")], cur: 0, bank: 0, image: null, imageUrl: null, target: 0, tq: null, sel: null, engine: "classic", lib: [] };
 const $ = id => document.getElementById(id);
 const kit = () => state.kits[state.cur];
 let actx = null;
@@ -565,17 +684,40 @@ async function addToPads(files, start) { placeOnPads(await loadMany(files), star
 async function addToLib(files) { const s = await loadMany(files); if (s.length) toast(t("added", s.length)); render(); }
 
 /* Lecture : retourne une fonction stop() (utilisée en mode Note On) */
-function play(sample, el, gain = 1) {
+/* Un seul son à la fois : le nouveau coupe le précédent (et sa reverb / son écho) */
+let lastStop = () => {};
+function play(sample, el, gain = 1, fx = null, amt = 0) {
   if (!sample) return () => {};
+  lastStop();
   if (el) { el.classList.remove("hit"); void el.offsetWidth; el.classList.add("hit"); setTimeout(() => el.classList.remove("hit"), 140); }
+  let stop;
   if (sample.buffer) {
     const c = ctx(); c.resume();
-    const src = c.createBufferSource(), g = c.createGain();
-    src.buffer = sample.buffer; g.gain.value = gain; src.connect(g); g.connect(c.destination); src.start();
-    return () => { try { g.gain.setTargetAtTime(0, c.currentTime, 0.015); src.stop(c.currentTime + 0.08); } catch (e) {} };
+    const src = c.createBufferSource(), g = c.createGain(), out = c.createGain();
+    src.buffer = fx && fx.type === "crush" ? crushBuf(c, sample.buffer, amt) : sample.buffer; g.gain.value = gain; src.connect(g);
+    out.connect(c.destination); g.connect(fx ? fxInput(c, fx, amt, out) : out); src.start();
+    stop = () => { try { out.gain.setTargetAtTime(0, c.currentTime, 0.015); src.stop(c.currentTime + 0.08); setTimeout(() => out.disconnect(), 200); } catch (e) {} };
+  } else {
+    const a = new Audio(sample.url); a.volume = Math.min(1, gain); a.play().catch(() => {});
+    stop = () => a.pause();
   }
-  const a = new Audio(sample.url); a.volume = Math.min(1, gain); a.play().catch(() => {});
-  return () => a.pause();
+  lastStop = stop;
+  return stop;
+}
+/* 4 sons XY : mélange selon la position (poids bilinéaires, comme le fondu de la MPC) */
+function playMix(C, x, y, el) {
+  lastStop();
+  x = Math.min(1, Math.max(0, x)); y = Math.min(1, Math.max(0, y));
+  if (el) { el.classList.remove("hit"); void el.offsetWidth; el.classList.add("hit"); setTimeout(() => el.classList.remove("hit"), 140); }
+  const c = ctx(); c.resume(); const out = c.createGain(); out.connect(c.destination);
+  const w = [(1 - x) * y, x * y, (1 - x) * (1 - y), x * (1 - y)], srcs = [];
+  C.forEach((smp, q) => {
+    if (!smp || !smp.buffer || w[q] < .01) return;
+    const src = c.createBufferSource(), g = c.createGain(); src.buffer = smp.buffer; g.gain.value = Math.sqrt(w[q]);
+    src.connect(g); g.connect(out); src.start(); srcs.push(src);
+  });
+  const stop = () => { try { out.gain.setTargetAtTime(0, c.currentTime, 0.015); srcs.forEach(s => s.stop(c.currentTime + 0.08)); setTimeout(() => out.disconnect(), 200); } catch (e) {} };
+  lastStop = stop; return stop;
 }
 function playPad(i, el, gain = 1) {
   const stop = play(kit().pads[i], el, gain);
@@ -639,6 +781,10 @@ function renderCover() {
 function swapPads(a, b) {
   const P = kit().pads, M = kit().modes, D = kit().dyn;
   [P[a], P[b]] = [P[b], P[a]]; [M[a], M[b]] = [M[b], M[a]]; [D[a], D[b]] = [D[b], D[a]];
+  const C = kit().corners; [C[a], C[b]] = [C[b], C[a]];
+  const F = kit().fx; [F[a], F[b]] = [F[b], F[a]];
+  const Q = kit().quad; [Q[a], Q[b]] = [Q[b], Q[a]];
+  const X = kit().xy; [X[a], X[b]] = [X[b], X[a]];
 }
 function render() {
   const kits = $("kits"); kits.innerHTML = "";
@@ -676,7 +822,60 @@ function render() {
     const local = row * 4 + col, i = state.bank * 16 + local, p = kit().pads[i], mode = kit().modes[i];
     const el = document.createElement("div"); el.className = "pad" + (p ? " full" : ""); el.dataset.i = i;
     el.innerHTML = `<span class="id">${padLabel(i)}</span><span class="key">${KEY_LABEL(KEYS[local])}</span>`;
-    if (p) {
+    if (state.engine === "mpce" && !kit().quad[i] && p) {
+      const fx = kit().fx[i], ax = fx ? (fx.type === "filter" ? "xy" : fx.axis) : "";
+      el.className = "pad full" + (fx ? " fxpad" : "");
+      el.innerHTML = fx ? `<span class="fxaxis ${ax}"></span><span class="id">${padLabel(i)}</span><span class="fxb">${t("fx_" + fx.type)} · ${ax.toUpperCase()}</span>` : `<span class="id">${padLabel(i)}</span>`;
+      const cv = document.createElement("canvas"); el.appendChild(cv);
+      const nm = document.createElement("div"); nm.className = "nm"; nm.textContent = p.name; el.appendChild(nm);
+      requestAnimationFrame(() => drawWave(cv, p.peaks, "#ff6b55"));
+      el.onpointerdown = e => {
+        if (e.button) return;
+        if (state.sel !== i) { state.sel = i; markSel(el); renderFx(); }
+        stopHeld();
+        if (fx) fxDot(el, e);
+        const [f2, a] = fx ? fxFor(el, e, fx) : [null, 0];
+        const stop = play(p, el, 1, f2, a); held = kit().modes[i] === "noteon" ? stop : () => {};
+      };
+      el.oncontextmenu = e => { e.preventDefault(); openModes(i); };
+      el.draggable = true;
+      el.ondragstart = e => { stopHeld(); e.dataTransfer.setData("text/x-pad", String(i)); e.dataTransfer.effectAllowed = "move"; el.classList.add("dragging"); };
+      el.ondragend = () => el.classList.remove("dragging");
+    } else if (state.engine === "mpce" && kit().quad[i]) {
+      const C = [0, 1, 2, 3].map(q => getC(i, q));
+      const xy = kit().xy[i];
+      el.className = "pad quad" + (xy ? " xyb" : "") + (C.some(Boolean) ? " full" : ""); el.innerHTML = "";
+      C.forEach((smp, q) => {
+        const c = document.createElement("div"); c.className = "q q" + q + (smp ? " f" : "");
+        if (smp) {
+          const cv = document.createElement("canvas"); c.appendChild(cv);
+          const n = document.createElement("span"); n.className = "qn"; n.textContent = smp.name; c.appendChild(n);
+          const x = document.createElement("button"); x.className = "qx"; x.textContent = "✕"; x.title = t("clearCorner");
+          x.onpointerdown = e => e.stopPropagation();
+          x.onclick = e => { e.stopPropagation(); setC(i, q, null); render(); };
+          c.appendChild(x);
+          requestAnimationFrame(() => drawWave(cv, smp.peaks, QCOL[q]));
+        } else c.insertAdjacentHTML("beforeend", '<span class="qe">+</span>');
+        el.appendChild(c);
+      });
+      el.insertAdjacentHTML("beforeend", `<span class="id">${padLabel(i)}</span>` + (xy ? '<span class="fxb">XY</span>' : ""));
+      el.onpointerdown = e => {
+        if (e.button) return;
+        if (state.sel !== i) { state.sel = i; markSel(el); renderFx(); }
+        const q = cornerAt(el, e), smp = getC(i, q);
+        if (xy && C.some(Boolean) && smp) {
+          const b = el.getBoundingClientRect(); stopHeld(); fxDot(el, e);
+          const stop = playMix(C, (e.clientX - b.left) / b.width, 1 - (e.clientY - b.top) / b.height, el); held = kit().modes[i] === "noteon" ? stop : () => {};
+        } else if (smp) { stopHeld(); const stop = play(smp, el.children[q]); held = kit().modes[i] === "noteon" ? stop : () => {}; }
+      };
+      el.onclick = e => { const q = cornerAt(el, e); if (!getC(i, q)) { state.target = i; state.tq = q; $("sndFile").click(); } };
+      el.oncontextmenu = e => { e.preventDefault(); openModes(i); };
+      if (C.some(Boolean)) {
+        el.draggable = true;
+        el.ondragstart = e => { stopHeld(); e.dataTransfer.setData("text/x-pad", String(i)); e.dataTransfer.effectAllowed = "move"; el.classList.add("dragging"); };
+        el.ondragend = () => el.classList.remove("dragging");
+      }
+    } else if (p) {
       const cv = document.createElement("canvas"); el.appendChild(cv);
       el.insertAdjacentHTML("beforeend", `<span class="mode ${mode}">${MODE_LABEL[mode]}</span>` + (kit().dyn[i] ? '<span class="dyn">G·N·A</span>' : ""));
       const nm = document.createElement("div"); nm.className = "nm"; nm.textContent = p.name; el.appendChild(nm);
@@ -685,7 +884,7 @@ function render() {
       gear.onclick = e => { e.stopPropagation(); openModes(i); };
       const x = document.createElement("button"); x.className = "tool x"; x.textContent = "✕"; x.title = t("clearPad");
       x.onpointerdown = e => e.stopPropagation();
-      x.onclick = e => { e.stopPropagation(); kit().pads[i] = null; kit().modes[i] = "oneshot"; kit().dyn[i] = false; render(); };
+      x.onclick = e => { e.stopPropagation(); kit().pads[i] = null; kit().modes[i] = "oneshot"; kit().dyn[i] = false; kit().corners[i] = [null, null, null]; kit().fx[i] = null; kit().quad[i] = $("allQuad").checked; kit().xy[i] = false; render(); };
       el.append(gear, x);
       el.draggable = true;
       el.ondragstart = e => { stopHeld(); e.dataTransfer.setData("text/x-pad", String(i)); e.dataTransfer.effectAllowed = "move"; el.classList.add("dragging"); };
@@ -695,16 +894,28 @@ function render() {
       requestAnimationFrame(() => drawWave(cv, p.peaks, mode === "noteon" ? "#8fe4ff" : "#ff6b55"));
     } else {
       el.insertAdjacentHTML("beforeend", '<span class="plus">+</span>');
-      el.onclick = () => { state.target = i; $("sndFile").click(); };
+      el.onclick = () => { state.target = i; state.tq = null; $("sndFile").click(); };
+      if (state.engine === "mpce") el.onpointerdown = () => { if (state.sel !== i) { state.sel = i; markSel(el); renderFx(); } };
     }
     let depth = 0;
     el.ondragenter = e => { e.preventDefault(); depth++; el.classList.add("over"); };
-    el.ondragover = e => { e.preventDefault(); e.dataTransfer.dropEffect = hasFiles(e) ? "copy" : "move"; };
-    el.ondragleave = () => { if (--depth <= 0) { depth = 0; el.classList.remove("over"); } };
+    const quad = state.engine === "mpce" && kit().quad[i];
+    const markQ = q => el.querySelectorAll(".q").forEach((c, k) => c.classList.toggle("over", k === q));
+    el.ondragover = e => { e.preventDefault(); e.dataTransfer.dropEffect = e.dataTransfer.types.includes("text/x-pad") ? "move" : "copy"; if (quad && !e.dataTransfer.types.includes("text/x-pad")) markQ(cornerAt(el, e)); };
+    el.ondragleave = () => { if (--depth <= 0) { depth = 0; el.classList.remove("over"); markQ(-1); } };
     el.ondrop = async e => {
-      e.preventDefault(); e.stopPropagation(); el.classList.remove("over"); hideOverlay();
+      e.preventDefault(); e.stopPropagation(); el.classList.remove("over"); hideOverlay(); markQ(-1);
       const src = e.dataTransfer.getData("text/x-pad"), lib = e.dataTransfer.getData("text/x-lib");
       if (src !== "") { swapPads(+src, i); render(); }
+      else if (quad) {
+        const q = cornerAt(el, e);
+        if (lib !== "") { setC(i, q, state.lib[+lib]); render(); play(getC(i, q), document.querySelector(`.pad[data-i="${i}"]`).children[q]); }
+        else if (hasFiles(e)) {
+          const files = await filesFromDrop(e.dataTransfer);
+          if (files.some(isAudio)) placeOnCorners(await loadMany(files), i, q);
+          else if (files.some(isImage)) setImage(files.find(isImage));
+        }
+      }
       else if (lib !== "") { kit().pads[i] = state.lib[+lib]; render(); play(kit().pads[i], document.querySelector(`.pad[data-i="${i}"]`)); }
       else if (hasFiles(e)) {
         const files = await filesFromDrop(e.dataTransfer);
@@ -712,9 +923,10 @@ function render() {
         else if (files.some(isImage)) setImage(files.find(isImage));
       }
     };
+    if (state.engine === "mpce" && state.sel === i) el.classList.add("sel");
     pads.appendChild(el);
   }
-  renderLib();
+  renderLib(); renderFx();
   const total = state.kits.reduce((n, k) => n + k.pads.filter(Boolean).length, 0);
   $("tileTitle").textContent = $("expName").value.trim() || t("defName");
   $("tileSub").textContent = t("tileSub", $("expAuthor").value.trim() || "Custom", state.kits.length, total);
@@ -792,10 +1004,12 @@ $("allDyn").onclick = () => {
   used.forEach(i => kit().dyn[i] = turnOn);
   flashPad = null; renderModes(); render(); if (used.length) toast(turnOn ? t("dynOn", used.length) : t("dynOff"));
 };
+$("allQuad").onchange = e => { kit().quad.fill(e.target.checked); render(); };
 $("modeBtn").onclick = () => openModes();
 document.querySelectorAll("[data-eng]").forEach(b => b.onclick = () => {
   document.querySelectorAll("[data-eng]").forEach(x => x.classList.toggle("on", x === b));
   document.querySelector(".device").classList.toggle("mpce-on", b.dataset.eng === "mpce");
+  state.engine = b.dataset.eng; render();
 });
 $("modeClose").onclick = $("modeDone").onclick = () => $("modeDlg").close();
 $("modeDlg").addEventListener("click", e => { if (e.target === $("modeDlg")) $("modeDlg").close(); });
@@ -848,6 +1062,77 @@ function buildXpm(kitName, k, nameOf) {
   for (let i = 0; i < 128; i++) s += `<PadGroup number="${i + 1}"><Group>0</Group></PadGroup>\n`;
   return s + `</PadGroupMap>\n</Program>\n</MPCVObject>\n`;
 }
+
+/* ---------- Export MPCe (piste .xtd, format MPC 3.6+) ----------
+   Modèle tiré d'un kit vide « 64 Pad Layout » d'Akai.
+   Sources de modulation : 29 = X du pad, 30 = Y du pad. Cibles : 153 / 154 = fondu entre couches X / Y, 1 = cutoff. */
+const MPCE_TPL = "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";
+const CORNER_LAYER = [0, 1, 2, 3];            // coins haut-gauche, haut-droite, bas-gauche, bas-droite -> couche (à confirmer sur MPC)
+const FTYPE = { lp: 3, hp: 8, bp: 12 };       // passe-bas vérifié ; passe-haut / passe-bande à confirmer
+let mpceTpl = null;
+async function mpceTemplate() {
+  if (!mpceTpl) {
+    const bytes = Uint8Array.from(atob(MPCE_TPL), c => c.charCodeAt(0));
+    mpceTpl = JSON.parse(await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"))).text());
+  }
+  return structuredClone(mpceTpl);
+}
+const Fl = x => Number.isInteger(x) ? x.toFixed(1) + "@F" : x;
+async function gzipBytes(str) { return new Uint8Array(await new Response(new Blob([str]).stream().pipeThrough(new CompressionStream("gzip"))).arrayBuffer()); }
+function setLink(L, src, tgt, min, max, amount, shaper) {
+  L["link.source"] = src; L["link.target"] = tgt; L["link.min"] = Fl(min); L["link.max"] = Fl(max);
+  L["link.amount"] = Fl(amount); L["link.shaper"] = shaper; L["link.bipolar"] = false;
+}
+/* Version « avec effet » d'un son, calculée hors ligne (pour le fondu normal -> effet) */
+async function renderWet(sample, fx) {
+  const b = sample.buffer, tail = { reverb: 2.5, delay: 1.6 }[fx.type] || 0;
+  const oc = new OfflineAudioContext(Math.max(2, b.numberOfChannels), Math.ceil(b.length + tail * b.sampleRate), b.sampleRate);
+  const src = oc.createBufferSource(); src.buffer = fx.type === "crush" ? crushBuf(oc, b, 1) : b;
+  src.connect(fxInput(oc, fx, 1, oc.destination)); src.start();
+  const out = await oc.startRendering();
+  return { bytes: encodeWav(out), frames: out.length };
+}
+async function buildXtd(kn, k, nameOf, uniq) {
+  const T = await mpceTemplate(), d = T.data, used = new Map();
+  d.name = kn; d.program.name = kn;
+  d.arrangementClipMap.forEach(c => { if (c.value.name === "64 Pad Layout") c.value.name = kn; });
+  const setL = (L, name, smp, vs = 0, ve = 127, vol = 1) => {
+    L.sampleName = name; L.sampleFile = name + ".wav"; L.sliceInfo.End = smp.frames; L.velocityStart = vs; L.velocityEnd = ve;
+    L.volume.controlValue = L.volume.gainCoefficient = Fl(vol); used.set(name, smp);
+  };
+  const ins = [];
+  for (let i = 0; i < 128; i++) {
+    const it = structuredClone(T.inst), ml = it.modLinks; ins.push(it);
+    const main = k.pads[i], C = [main, ...((k.corners && k.corners[i]) || [null, null, null])], fx = k.fx && k.fx[i];
+    it.triggerMode = k.modes[i] === "noteon" ? 2 : 0;
+    if (k.quad && k.quad[i] && C.slice(1).some(Boolean)) {                       // 4 sons, un par coin
+      it.zonePlayTime = 3; it.layerCrossfade = 0;
+      C.forEach((smp, q) => { if (smp) setL(it.layersv[CORNER_LAYER[q]], nameOf.get(smp), smp); });
+      const sh = k.xy && k.xy[i] ? 0 : 10;                     // 10 = zones nettes, 0 = mélange progressif (XY)
+      setLink(ml[0], 29, 153, 1, 0, 1, sh); setLink(ml[1], 30, 154, 1, 0, 1, sh);
+    } else if (main && fx && fx.type === "filter") {             // filtre de la MPC piloté par X ou Y
+      it.zonePlayTime = 1; setL(it.layersv[0], nameOf.get(main), main);
+      const f = it.synthSection.filterData.value0; f.filterType = FTYPE[fx.ftype]; f.filterCutoff = Fl(1); f.filterResonance = Fl(fx.res);
+      f.filterResonance = Fl(0);
+      setLink(ml[0], 29, 1, 1, 0, -0.9, 0); setLink(ml[1], 30, 3, 0, 1, 0.5, 0);   // X = fréquence, Y = résonance
+    } else if (main && fx && main.buffer) {                      // reverb / delay / bitcrusher : fondu son normal -> son traité
+      const wet = await renderWet(main, fx), wn = uniq(nameOf.get(main) + " " + fx.type.toUpperCase());
+      const dryQ = fx.axis === "x" ? [0, 2] : [2, 3], wetQ = fx.axis === "x" ? [1, 3] : [0, 1];
+      it.zonePlayTime = 3; it.layerCrossfade = 0;
+      dryQ.forEach(q => setL(it.layersv[CORNER_LAYER[q]], nameOf.get(main), main));
+      wetQ.forEach(q => setL(it.layersv[CORNER_LAYER[q]], wn, wet));
+      setLink(ml[0], 29, 153, 1, 0, 1, 0); setLink(ml[1], 30, 154, 1, 0, 1, 0);
+    } else if (main && k.dyn && k.dyn[i]) {                      // ghost · normal · accent
+      it.zonePlayTime = 1; const n = nameOf.get(main);
+      setL(it.layersv[0], n, main, 0, 50, .45); setL(it.layersv[1], n, main, 51, 110, .8); setL(it.layersv[2], n, main, 111, 127, 1);
+    } else if (main) { it.zonePlayTime = 1; setL(it.layersv[0], nameOf.get(main), main); }
+  }
+  d.program.drum.instruments = ins;
+  d.samples = [...used.keys()].map(n => ({ version: 1, name: n, path: n + ".wav", loadImpl: 0, metadata: { tempo: Fl(120), rootNote: 60, tune: Fl(0), key: "C Major" } }));
+  const text = "ACVS\n3.6.0.134\nSerialisableTrackData\njson\nLinux\n" +
+    JSON.stringify({ data: d }, null, 4).replace(/"(-?\d+\.0)@F"/g, "$1").replace(/"@I64:(-?\d+)"/g, "$1");
+  return { data: await gzipBytes(text), used };
+}
 function buildExpansionXml(title, author, desc, img) {
   const slug = (title + "." + author).toLowerCase().replace(/[^a-z0-9]+/g, ".").replace(/^\.+|\.+$/g, "") || "custom";
   return `<?xml version="1.0" encoding="UTF-8"?>\n\n<expansion version="2.0.0.0" buildVersion="2.10.0.0">\n  <local/>\n` +
@@ -886,19 +1171,24 @@ function makeZip(files) {
 /* ---------- Export ---------- */
 async function buildPackage(asExpansion) {
   const enc = new TextEncoder();
-  const kits = (asExpansion ? state.kits : [kit()]).filter(k => k.pads.some(Boolean));
+  const kits = (asExpansion ? state.kits : [kit()]).filter(k => k.pads.some(Boolean) || (k.corners || []).flat().some(Boolean));
   if (!kits.length) throw new Error(t("needSound"));
   const title = sanitize($("expName").value) || sanitize(t("defName"));
   const folder = asExpansion ? title : (sanitize(kits[0].name) || "Kit");
   const files = [], used = new Set(), nameOf = new Map(), usedKits = new Set();
   const unique = (base, set) => { let n = base, i = 2; while (set.has(n.toLowerCase())) n = base + "_" + i++; set.add(n.toLowerCase()); return n; };
   for (const k of kits) {
-    for (const p of k.pads) if (p && !nameOf.has(p)) {
+    for (const p of [...k.pads, ...(k.corners || []).flat()]) if (p && !nameOf.has(p)) {
       const n = unique(p.name, used); nameOf.set(p, n);
       files.push({ name: `${folder}/${n}.wav`, data: p.bytes });
     }
     const kn = unique(sanitize(k.name) || "Kit", usedKits);
     files.unshift({ name: `${folder}/${kn}.xpm`, data: enc.encode(buildXpm(kn, k, nameOf)) });
+    if (state.engine === "mpce") {
+      const x = await buildXtd(kn, k, nameOf, b => unique(b, used));
+      files.push({ name: `${folder}/${kn}.xtd`, data: x.data });
+      for (const [n, smp] of x.used) files.push({ name: `${folder}/${kn}_[TrackData]/${n}.wav`, data: smp.bytes });
+    }
   }
   if (asExpansion) {
     const img = state.image || await canvasBlob(drawDefault($("expName").value.trim() || title));
@@ -960,7 +1250,10 @@ $("kitName").oninput = e => { kit().name = e.target.value; render(); };
 $("expName").oninput = () => { render(); if (!state.image) renderCover(); };
 $("expAuthor").oninput = render;
 $("libSearch").oninput = renderLib;
-$("sndFile").onchange = e => { addToPads([...e.target.files], state.target); e.target.value = ""; };
+$("sndFile").onchange = async e => {
+  const f = [...e.target.files]; e.target.value = "";
+  if (state.tq !== null && state.engine === "mpce") placeOnCorners(await loadMany(f), state.target, state.tq); else addToPads(f, state.target);
+};
 $("libFile").onchange = e => { addToLib([...e.target.files]); e.target.value = ""; };
 $("libDrop").onclick = () => $("libFile").click();
 $("libClear").onclick = () => { state.lib = []; render(); };
